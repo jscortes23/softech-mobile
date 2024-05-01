@@ -140,3 +140,18 @@ export const styleColors = StyleSheet.create({
     color: colors.white,
   },
 })
+
+export const alignText = StyleSheet.create({
+  center: {
+    textAlign: 'center',
+  },
+  right: {
+    textAlign: 'right',
+  },
+  left: {
+    textAlign: 'left',
+  },
+  justify: {
+    textAlign: 'justify',
+  },
+})
