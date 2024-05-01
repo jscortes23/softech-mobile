@@ -45,6 +45,33 @@ export const colors = {
   white: '#FFFFFF',
 }
 
+export const styleFontSize = StyleSheet.create({
+  largeTitle: {
+    fontSize: fontSize.largeTitle,
+  },
+  title1: {
+    fontSize: fontSize.title1,
+  },
+  title2: {
+    fontSize: fontSize.title2,
+  },
+  subtitle1: {
+    fontSize: fontSize.subtitle1,
+  },
+  subtitle2: {
+    fontSize: fontSize.subtitle2,
+  },
+  body1: {
+    fontSize: fontSize.body1,
+  },
+  body2: {
+    fontSize: fontSize.body2,
+  },
+  caption1: {
+    fontSize: fontSize.caption1,
+  },
+})
+
 export const styleColors = StyleSheet.create({
   blue10: {
     color: colors.blue10,
