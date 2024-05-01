@@ -182,3 +182,12 @@ export const alignText = StyleSheet.create({
     textAlign: 'justify',
   },
 })
+
+export const styleFontWeight = StyleSheet.create({
+  bold: {
+    fontWeight: '600',
+  },
+  regular: {
+    fontWeight: '400',
+  },
+})
