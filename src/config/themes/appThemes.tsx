@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native'
+
 export const fontSize = {
   largeTitle: 42,
   title1: 32,
@@ -67,5 +69,116 @@ export const styleFontSize = StyleSheet.create({
   },
   caption1: {
     fontSize: fontSize.caption1,
+  },
+})
+
+export const styleColors = StyleSheet.create({
+  blue10: {
+    color: colors.blue10,
+  },
+  blue40: {
+    color: colors.blue40,
+  },
+  blue80: {
+    color: colors.blue80,
+  },
+  blue100: {
+    color: colors.blue100,
+  },
+  blueBase: {
+    color: colors.blueBase,
+  },
+  red10: {
+    color: colors.red10,
+  },
+  red40: {
+    color: colors.red40,
+  },
+  red80: {
+    color: colors.red80,
+  },
+  red100: {
+    color: colors.red100,
+  },
+  redBase: {
+    color: colors.redBase,
+  },
+  pink10: {
+    color: colors.pink10,
+  },
+  pink40: {
+    color: colors.pink40,
+  },
+  pink80: {
+    color: colors.pink80,
+  },
+  pink100: {
+    color: colors.pink100,
+  },
+  pinkBase: {
+    color: colors.pinkBase,
+  },
+  neutral40: {
+    color: colors.neutral40,
+  },
+  neutral80: {
+    color: colors.neutral80,
+  },
+  neutral100: {
+    color: colors.neutral100,
+  },
+  neutralBase: {
+    color: colors.neutralBase,
+  },
+  green10: {
+    color: colors.green10,
+  },
+  green40: {
+    color: colors.green40,
+  },
+  green80: {
+    color: colors.green80,
+  },
+  green100: {
+    color: colors.green100,
+  },
+  greenBase: {
+    color: colors.greenBase,
+  },
+  brand10: {
+    color: colors.brand10,
+  },
+  brand40: {
+    color: colors.brand40,
+  },
+  brand80: {
+    color: colors.brand80,
+  },
+  brand100: {
+    color: colors.brand100,
+  },
+  brandBase: {
+    color: colors.brandBase,
+  },
+  black: {
+    color: colors.black,
+  },
+  white: {
+    color: colors.white,
+  },
+})
+
+export const alignText = StyleSheet.create({
+  center: {
+    textAlign: 'center',
+  },
+  right: {
+    textAlign: 'right',
+  },
+  left: {
+    textAlign: 'left',
+  },
+  justify: {
+    textAlign: 'justify',
   },
 })
