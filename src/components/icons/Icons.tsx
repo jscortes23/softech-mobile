@@ -299,7 +299,7 @@ export const ProductIcon: React.FC<iconsProps> = (props) => {
   )
 }
 
-export const Refreshcon: React.FC<iconsProps> = (props) => {
+export const RefreshIcon: React.FC<iconsProps> = (props) => {
   const { width, height, color } = props
   return (
     <Image
