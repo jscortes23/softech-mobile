@@ -5,12 +5,13 @@ interface BgLinearProps {
   start: { x: number; y: number }
   end: { x: number; y: number }
   children: React.ReactNode
+  style?: object
 }
 
 export const BgLinear: React.FC<BgLinearProps> = (props) => {
-  const { color, start, end, children } = props
+  const { color, start, end, children, style } = props
   return (
-    <LinearGradient colors={color} start={start} end={end}>
+    <LinearGradient style={style} colors={color} start={start} end={end}>
       {children}
     </LinearGradient>
   )
