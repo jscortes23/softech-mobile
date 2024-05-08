@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+
+import CellProduct from './components/CellProduct'
 
 export default function Main() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text>Open up App.tsx to start working on your app!</Text>
+
+      <CellProduct name="Cell Producto" numberSales={500} price={50}></CellProduct>
     </View>
   )
 }

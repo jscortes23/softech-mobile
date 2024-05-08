@@ -11,28 +11,18 @@ interface CellProductProps {
   price: number
 }
 
-export const CellProduct: React.FC<CellProductProps> = (props) => {
+const CellProduct: React.FC<CellProductProps> = (props) => {
   const { name, numberSales, price } = props
 
   return (
-    <View style={styles.container}>
-      <View style={styles.rowContainer}>
-        <View style={styles.icon}>
-          <ProductIcon width={90} height={90} color={colors.redBase} />
-        </View>
-        <StyledText style={styles.productName} body2 neutral100>
+    <View style={[styles.container, styles.shadow]}>
+      <ProductIcon width={80} height={80} color={colors.redBase} />
+      <View style={styles.content}>
+        <StyledText body2 neutral100>
           {name}
         </StyledText>
-      </View>
-      <View style={styles.rowContainer}>
-        <StyledText style={styles.price} body2 neutral100>
-          $ {price}
-        </StyledText>
-        <StyledText style={styles.dot} body2 neutral100>
-          .
-        </StyledText>
-        <StyledText style={styles.sales} body2 neutral100>
-          {numberSales} ventas
+        <StyledText body2 neutral100>
+          ${price} ∙ {numberSales} ventas
         </StyledText>
       </View>
     </View>
@@ -41,35 +31,29 @@ export const CellProduct: React.FC<CellProductProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-  },
-  rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 17,
+    backgroundColor: colors.white,
+    borderBottomWidth: 1,
+    borderBottomColor: '#BBCAD2',
+    borderTopWidth: 0,
   },
-  icon: {
-    width: 90,
-    height: 90,
-    marginRight: 10,
+  content: {
+    alignItems: 'flex-start',
+    flex: 1,
+    marginLeft: 12,
   },
-  productName: {
-    fontSize: 30,
-    marginTop: -50,
-  },
-  price: {
-    fontSize: 40,
-    marginLeft: 100,
-    marginTop: -50,
-  },
-  dot: {
-    fontSize: 40,
-    marginHorizontal: 5,
-    marginTop: -50,
-  },
-  sales: {
-    fontSize: 40,
-    marginTop: -50,
+  shadow: {
+    shadowColor: '#FFF',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2.22,
+    elevation: 5,
   },
 })
 
