@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 
-import { StyledText } from '../StyledText'
-import { SearchIcon } from '../icons/Icons'
+import { StyledText } from './StyledText'
+import { SearchIcon } from './icons/Icons'
 
 interface ProductListProps {
   name: string
@@ -25,7 +25,7 @@ export const ProductList: React.FC<ProductListProps> = (props) => {
 
 const styles = StyleSheet.create({
   header: {
-    columnGap: 230,
+    justifyContent: 'space-between',
     paddingBottom: 5,
     flexDirection: 'row',
   },
