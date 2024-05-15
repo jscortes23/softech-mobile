@@ -12,24 +12,28 @@ export const Overview: React.FC<OverviewProps> = (props) => {
   const { updateTime } = props
 
   return (
-    <View>
-      <StyledText style={styles.title} title2 neutral100>
+    <View style={styles.container}>
+      <StyledText title2 neutral100>
         Overview
       </StyledText>
-
-      <StyledText style={styles.icono} body2 neutral80>
-        <RefreshIcon height={13} width={16} color={colors.neutral80}></RefreshIcon>
-        {updateTime}
-      </StyledText>
+      <View style={styles.content}>
+        <RefreshIcon height={13} width={16} color={colors.neutral80} />
+        <StyledText body2 neutral80>
+          {updateTime}
+        </StyledText>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  icono: {
-    justifyContent: 'flex-start',
+  container: {
+    rowGap: 8,
+    alignItems: 'flex-start',
   },
-  title: {
-    padding: 10,
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 8,
   },
 })
