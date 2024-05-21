@@ -368,3 +368,33 @@ export const TagIcon: React.FC<iconsProps> = (props) => {
     />
   )
 }
+
+export const EyeIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Eye.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const CrossedOutEyeIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/CrossedOutEye.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
