@@ -5,7 +5,7 @@ import { StyledText } from './StyledText'
 import { colors } from '../config/themes/appThemes'
 
 interface CheckboxProps {
-  onChange: (value: string) => void
+  onChange?: (value: string) => void
   value: string
 }
 

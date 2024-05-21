@@ -27,16 +27,17 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     paddingVertical: 15,
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    columnGap: 10,
   },
   shadowProp: {
     shadowColor: "rgba('51','102','204','0.2')",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    elevation: 19,
+    elevation: 5,
   },
   primary: {
     backgroundColor: colors.blueBase,
