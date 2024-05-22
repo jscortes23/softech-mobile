@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 
 interface BgTwoColorProps {
   colors: string[]
@@ -14,7 +14,9 @@ export const BgTwoColor: React.FC<BgTwoColorProps> = (props) => {
     <View style={styles.container}>
       <View style={[styles.background1, { backgroundColor: colors[0] }]}></View>
       <View style={[styles.background2, { backgroundColor: colors[1] }]}></View>
-      <View style={styles.children}>{children}</View>
+      <View style={styles.children}>
+        <ScrollView>{children}</ScrollView>
+      </View>
     </View>
   )
 }
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
   },
   children: {
     position: 'absolute',
+    height: '100%',
     width,
   },
 })
