@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native'
 
 import { StyledText } from './StyledText'
 import { BgLinear } from './backgrounds/BgLinear'
+import { parseThousands } from '../utils/parseThousands'
 
 interface CardHighlightProps {
   title: string
@@ -16,7 +17,7 @@ export const CardHighlight: React.FC<CardHighlightProps> = (props) => {
     <BgLinear style={styles.border} color={color} start={{ x: 0.14, y: 0 }} end={{ x: 1, y: 0 }}>
       <View style={styles.container}>
         <StyledText white largeTitle>
-          {quantity}
+          {parseThousands(quantity)}
         </StyledText>
         <StyledText white subtitle1>
           {title}
