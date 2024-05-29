@@ -4,7 +4,7 @@ import { StyledText } from './StyledText'
 import { colors, fontSize } from '../config/themes/appThemes'
 
 interface ButtonPrimaryProps {
-  onPress: () => void
+  onPress?: () => void
   text?: string
   icon?: React.ReactNode
   variant: 'primary' | 'secondary'
