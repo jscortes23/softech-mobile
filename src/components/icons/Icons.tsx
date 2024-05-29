@@ -398,3 +398,18 @@ export const CrossedOutEyeIcon: React.FC<iconsProps> = (props) => {
     />
   )
 }
+
+export const CartIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Cart.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
