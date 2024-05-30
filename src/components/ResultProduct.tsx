@@ -1,14 +1,16 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, Pressable } from 'react-native'
 
 import { ButtonPrimary } from './ButtonPrimary'
+import { StyledText } from './StyledText'
 import { CartIcon } from './icons/Icons'
+import { colors } from '../config/themes/appThemes'
 
 interface ResultProductProps {
   productName: string
   productImage: string
   productPrice: number
-  onAddToCart: () => void
-  onBuyNow: () => void
+  onAddToCart?: () => void
+  onBuyNow?: () => void
 }
 
 export const ResultProduct: React.FC<ResultProductProps> = (props) => {
@@ -16,16 +18,18 @@ export const ResultProduct: React.FC<ResultProductProps> = (props) => {
 
   return (
     <View style={styles.card}>
+      <Pressable onPress={onAddToCart} style={styles.icon}>
+        <CartIcon height={32} width={32} />
+      </Pressable>
       <Image source={{ uri: productImage }} style={styles.image} />
-      <Text style={styles.productName}>{productName}</Text>
-      <Text style={styles.productPrice}>${productPrice}</Text>
-      <View style={styles.buttonContainer}>
+      <View style={styles.cardContent}>
+        <StyledText body2 center>
+          {productName}
+        </StyledText>
+        <StyledText title2 bold center>
+          ${productPrice}
+        </StyledText>
         <ButtonPrimary onPress={onBuyNow} text="Buy Now" variant="primary" />
-        <ButtonPrimary
-          onPress={onAddToCart}
-          icon={<CartIcon width={20} height={20} color="#000" />}
-          variant="secondary"
-        />
       </View>
     </View>
   )
@@ -33,37 +37,22 @@ export const ResultProduct: React.FC<ResultProductProps> = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 16,
-    borderRadius: 8,
-    backgroundColor: '#fff',
+    maxWidth: 198,
     alignItems: 'center',
-    shadowColor: 'rgba(0,0,0,0.1)',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 3,
+    paddingHorizontal: 12,
+    paddingVertical: 24,
+    rowGap: 8,
+    borderRadius: 8,
+    backgroundColor: colors.neutral10,
+  },
+  icon: {
+    alignSelf: 'flex-end',
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    marginBottom: 16,
+    width: 104,
+    height: 104,
   },
-  productName: {
-    fontSize: 16,
-    // fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  productPrice: {
-    fontSize: 18,
-    color: '#000',
-    marginBottom: 16,
-    fontWeight: 'bold',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    width: '100%',
+  cardContent: {
+    rowGap: 16,
   },
 })

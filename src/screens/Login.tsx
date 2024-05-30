@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 
-import { BgTwoColor } from '../components/BgTwoColor'
+import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { Checkbox } from '../components/Checkbox'
 import { ContainerMain } from '../components/ContainerMain'
