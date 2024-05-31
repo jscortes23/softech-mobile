@@ -13,17 +13,16 @@ interface ButtonPrimaryProps {
 export const ButtonPrimary: React.FC<ButtonPrimaryProps> = (props) => {
   const { icon, onPress, text, variant } = props
 
-  const type =
-    variant === 'primary'
-      ? styles.primary
-      : variant === 'secondary'
-        ? styles.secondary
-        : styles.alternative
+  const type = {
+    primary: styles.primary,
+    secondary: styles.secondary,
+    alternative: styles.alternative,
+  }
 
   return (
-    <Pressable onPress={onPress} style={[styles.container, styles.shadowProp, type]}>
+    <Pressable onPress={onPress} style={[styles.container, styles.shadowProp, type[variant]]}>
       {icon}
-      {text && <StyledText style={{ color: type.color }}>{text}</StyledText>}
+      {text && <StyledText style={type[variant]}>{text}</StyledText>}
     </Pressable>
   )
 }
