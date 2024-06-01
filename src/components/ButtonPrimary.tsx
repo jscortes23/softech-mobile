@@ -22,7 +22,7 @@ export const ButtonPrimary: React.FC<ButtonPrimaryProps> = (props) => {
   return (
     <Pressable onPress={onPress} style={[styles.container, styles.shadowProp, type[variant]]}>
       {icon}
-      {text && <StyledText style={type[variant]}>{text}</StyledText>}
+      {text && <StyledText style={{ color: type[variant].color }}>{text}</StyledText>}
     </Pressable>
   )
 }
