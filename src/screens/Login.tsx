@@ -1,13 +1,13 @@
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 
-import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { Checkbox } from '../components/Checkbox'
 import { ContainerMain } from '../components/ContainerMain'
 import { InputText } from '../components/InputText'
 import { Link } from '../components/Link'
 import { StyledText } from '../components/StyledText'
+import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
 

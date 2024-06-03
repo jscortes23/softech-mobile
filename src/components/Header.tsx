@@ -1,10 +1,10 @@
 import Constants from 'expo-constants'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, Pressable } from 'react-native'
 
 import { MenuIcon } from './icons/Icons'
 import { colors } from '../config/themes/appThemes'
 
-export const Header: React.FC = (props) => {
+export const Header: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.conatinerImages}>
@@ -25,9 +25,10 @@ export const Header: React.FC = (props) => {
           }}
         />
       </View>
-      <View style={styles.icon}>
+
+      <Pressable onPress={() => navigation.toggleDrawer()} style={styles.icon}>
         <MenuIcon width={24} height={24} color={colors.neutral100} />
-      </View>
+      </Pressable>
     </View>
   )
 }

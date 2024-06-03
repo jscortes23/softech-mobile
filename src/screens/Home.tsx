@@ -3,7 +3,6 @@ import { View, StyleSheet, ScrollView } from 'react-native'
 
 import { CardHighlight } from '../components/CardHighlight'
 import { ContainerMain } from '../components/ContainerMain'
-import { Header } from '../components/Header'
 import { Overview } from '../components/Overview'
 import { colors } from '../config/themes/appThemes'
 
@@ -42,7 +41,6 @@ const data = {
 export const Home = () => {
   return (
     <>
-      <Header />
       <ScrollView>
         <ContainerMain>
           <Overview updateTime="Last updated 1 hour ago" />
