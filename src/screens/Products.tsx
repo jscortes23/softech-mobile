@@ -1,7 +1,6 @@
 import { ScrollView, View } from 'react-native'
 
 import { CellProduct } from '../components/CellProduct'
-import { Header } from '../components/Header'
 import { ProductList } from '../components/ProductList'
 
 const products = [
@@ -15,7 +14,6 @@ const products = [
 export const Products: React.FC = () => {
   return (
     <View>
-      <Header />
       <ScrollView>
         <ProductList name="Products">
           {products.map((product, index) => (

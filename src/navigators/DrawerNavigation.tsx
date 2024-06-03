@@ -1,5 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
+import { Header } from '../components/Header'
 import {
   ActivityIcon,
   GridIcon,
@@ -18,7 +19,11 @@ const Drawer = createDrawerNavigator()
 
 export const DrawerNavigation = () => {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={({ navigation }) => ({
+        header: () => <Header navigation={navigation} />,
+        drawerPosition: 'right',
+      })}>
       <Drawer.Screen
         name="View Live Site"
         component={Home}
@@ -26,6 +31,7 @@ export const DrawerNavigation = () => {
           drawerIcon: ({ color }) => <SiteIcon width={20} height={20} color={color} />,
         }}
       />
+
       <Drawer.Screen
         name="Overview "
         component={Home}
@@ -33,6 +39,7 @@ export const DrawerNavigation = () => {
           drawerIcon: ({ color }) => <GridIcon width={20} height={20} color={color} />,
         }}
       />
+
       <Drawer.Screen
         name="Analytics"
         component={Analytics}
@@ -40,6 +47,7 @@ export const DrawerNavigation = () => {
           drawerIcon: ({ color }) => <ActivityIcon width={20} height={20} color={color} />,
         }}
       />
+
       <Drawer.Screen
         name="Products"
         component={Products}
@@ -47,6 +55,7 @@ export const DrawerNavigation = () => {
           drawerIcon: ({ color }) => <ProductIcon width={20} height={20} color={color} />,
         }}
       />
+
       <Drawer.Screen
         name="Tags"
         component={Tags}
@@ -54,6 +63,7 @@ export const DrawerNavigation = () => {
           drawerIcon: ({ color }) => <TagIcon width={20} height={20} color={color} />,
         }}
       />
+
       <Drawer.Screen
         name="Inquiries"
         component={Inquiries}
