@@ -1,53 +1,57 @@
 import React, { useState } from 'react'
-import { View, Text, Image, Button, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, Pressable } from 'react-native'
 
 import { StyledText } from './StyledText'
+import { MinusIcon, PlusIcon } from './icons/Icons'
+import { colors } from '../config/themes/appThemes'
 
 interface CardProductProps {
   onChange?: (value: number) => void
-  value: number
   price: number
   imageUrl: string
+  name: string
+  onDelete?: () => void
 }
 
-export const CardProduct: React.FC<CardProductProps> = ({ onChange, value, price, imageUrl }) => {
-  const [quantity, setQuantity] = useState<number>(value)
+export const CardProduct: React.FC<CardProductProps> = (props) => {
+  const { imageUrl, name, price, onChange, onDelete } = props
+  const [quantity, setQuantity] = useState<number>(0)
 
   const incrementQuantity = () => {
-    const newQuantity = quantity + 1
-    setQuantity(newQuantity)
-    if (onChange) {
-      onChange(newQuantity)
-    }
+    setQuantity(quantity + 1)
   }
 
   const decrementQuantity = () => {
-    if (quantity > 0) {
-      const newQuantity = quantity - 1
-      setQuantity(newQuantity)
-      if (onChange) {
-        onChange(newQuantity)
-      }
-    }
+    setQuantity(quantity > 0 ? quantity - 1 : 0)
   }
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{
-          uri: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTINL4T_sVLqeIEGWbgXiNLBv6A7ZDOaVdvGEntZGVgTcjMA1a6qntK0bC5aisboKHh9q_v5A4JAT-Jgn3LyvtIZ5a-drNxLvd3TY1FWBqD45BOBv-XBiOZDg&usqp=CAE',
-        }}
-        style={styles.image}
-      />
+      <Image source={{ uri: imageUrl }} style={styles.image} />
       <View style={styles.detailsContainer}>
-        <StyledText>Apple Iphone 15 Pro Max 128GB Dark Grey</StyledText>
-        <Text style={styles.priceText}>${(price * quantity).toFixed(2)}</Text>
+        <StyledText body1 bold>
+          {name}
+        </StyledText>
         <View style={styles.quantitySelector}>
-          <Button title="-" onPress={decrementQuantity} />
-          <Text style={styles.quantityText}>{quantity}</Text>
-          <Button title="+" onPress={incrementQuantity} />
+          <View style={styles.containerQuantity}>
+            <Pressable onPress={decrementQuantity}>
+              <MinusIcon width={24} height={24} color={colors.black} />
+            </Pressable>
+            <StyledText body1 bold style={styles.quantityText}>
+              {quantity}
+            </StyledText>
+            <Pressable onPress={incrementQuantity}>
+              <PlusIcon width={24} height={24} color={colors.black} />
+            </Pressable>
+          </View>
+          <StyledText subtitle1 bold>
+            ${price}
+          </StyledText>
         </View>
       </View>
+      <Pressable onPress={onDelete} style={styles.closeIcon}>
+        <StyledText title2>X</StyledText>
+      </Pressable>
     </View>
   )
 }
@@ -56,31 +60,39 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginBottom: 10,
+    paddingVertical: 16,
+    columnGap: 10,
   },
   image: {
-    width: 90,
-    height: 90,
-    marginRight: 10,
+    flex: 1,
+    aspectRatio: 1,
   },
   detailsContainer: {
-    flex: 1,
+    flex: 3,
   },
   priceText: {
     fontSize: 18,
     fontWeight: 'bold',
   },
+  containerQuantity: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 8,
+  },
   quantitySelector: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 10,
   },
   quantityText: {
-    marginHorizontal: 10,
-    fontSize: 18,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderColor: colors.neutral40,
+    borderWidth: 1,
+    borderRadius: 4,
+  },
+  closeIcon: {
+    alignSelf: 'flex-start',
   },
 })
