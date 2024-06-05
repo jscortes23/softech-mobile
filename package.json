@@ -11,8 +11,8 @@
   "dependencies": {
     "@react-navigation/drawer": "^6.6.15",
     "@react-navigation/native": "^6.1.17",
-    "expo": "^51.0.2",
-    "expo-constants": "~16.0.1",
+    "expo": "~51.0.9",
+    "expo-constants": "~16.0.2",
     "expo-linear-gradient": "~13.0.2",
     "expo-status-bar": "~1.12.1",
     "firebase": "^10.12.1",
