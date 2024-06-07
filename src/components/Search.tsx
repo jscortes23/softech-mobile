@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { View, TextInput, StyleSheet, Alert } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
 
 import { SearchIcon } from './icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
