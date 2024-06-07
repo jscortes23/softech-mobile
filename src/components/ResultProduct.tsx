@@ -37,7 +37,6 @@ export const ResultProduct: React.FC<ResultProductProps> = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    maxWidth: 198,
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 24,
