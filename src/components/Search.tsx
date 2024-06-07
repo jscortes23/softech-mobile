@@ -1,17 +1,22 @@
-import React from 'react'
-import { View, TextInput, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, TextInput, StyleSheet, Alert } from 'react-native'
 
 import { SearchIcon } from './icons/Icons'
+import { colors, fontSize } from '../config/themes/appThemes'
 
 interface SearchProps {
   value: string
 }
 
-const SearchBar: React.FC<SearchProps> = (props) => {
+export const Search: React.FC<SearchProps> = (props) => {
   return (
     <View style={styles.container}>
-      <SearchIcon width={24} height={24} />
-      <TextInput style={styles.input} placeholder="Buscar" placeholderTextColor="#888" />
+      <SearchIcon width={24} height={24} color={colors.neutral80} />
+      <TextInput
+        style={styles.input}
+        placeholder="Buscar"
+        placeholderTextColor={colors.neutral80}
+      />
     </View>
   )
 }
@@ -20,22 +25,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 315,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    height: 40,
     borderRadius: 8,
     paddingHorizontal: 16,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    marginRight: 8,
+    backgroundColor: colors.neutral10,
+    columnGap: 8,
   },
   input: {
     flex: 1,
-    fontSize: 16,
-    color: '#333',
+    fontSize: fontSize.body1,
+    color: colors.neutral80,
   },
 })
-
-export default SearchBar
