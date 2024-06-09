@@ -1,7 +1,9 @@
+import { ViewStyle } from 'react-native'
+
 export interface StyledTextProps {
   children: React.ReactNode
   largeTitle?: boolean
-  style?: object
+  style?: ViewStyle
   title1?: boolean
   title2?: boolean
   subtitle1?: boolean
