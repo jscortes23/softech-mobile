@@ -24,29 +24,11 @@ export const colors = {
   red80: '#A82210',
   red100: '#380B05',
 
-  pink10: '#FDE7F3',
-  pink40: '#F69FCE',
-  pinkBase: '#EB2891',
-  pink80: '#8C0D51',
-  pink100: '#380521',
-
   neutral10: '#F4F8FA',
   neutral40: '#BBCAD2',
   neutralBase: '#5F7896',
   neutral80: '#36485C',
   neutral100: '#172026',
-
-  green10: '#DCFCDD',
-  green40: '#81DC84',
-  greenBase: '#00A424',
-  green80: '#005B14',
-  green100: '#00370C',
-
-  brand10: '#F5F4FF',
-  brand40: '#D5CFFA',
-  brandBase: '#4328EB',
-  brand80: '#1F0D8C',
-  brand100: '#0C0538',
 
   black: '#000000',
   white: '#FFFFFF',
@@ -112,22 +94,6 @@ export const styleColors = StyleSheet.create({
     color: colors.red100,
   },
 
-  pink10: {
-    color: colors.pink10,
-  },
-  pink40: {
-    color: colors.pink40,
-  },
-  pinkBase: {
-    color: colors.pinkBase,
-  },
-  pink80: {
-    color: colors.pink80,
-  },
-  pink100: {
-    color: colors.pink100,
-  },
-
   neutral10: {
     color: colors.neutral40,
   },
@@ -142,38 +108,6 @@ export const styleColors = StyleSheet.create({
   },
   neutral100: {
     color: colors.neutral100,
-  },
-
-  green10: {
-    color: colors.green10,
-  },
-  green40: {
-    color: colors.green40,
-  },
-  greenBase: {
-    color: colors.greenBase,
-  },
-  green80: {
-    color: colors.green80,
-  },
-  green100: {
-    color: colors.green100,
-  },
-
-  brand10: {
-    color: colors.brand10,
-  },
-  brand40: {
-    color: colors.brand40,
-  },
-  brandBase: {
-    color: colors.brandBase,
-  },
-  brand80: {
-    color: colors.brand80,
-  },
-  brand100: {
-    color: colors.brand100,
   },
 
   black: {
