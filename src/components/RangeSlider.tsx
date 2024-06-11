@@ -1,6 +1,9 @@
 import { Slider } from '@miblanchard/react-native-slider'
-import React, { useState } from 'react'
-import { View, TextInput, Text, StyleSheet } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { View, TextInput, StyleSheet } from 'react-native'
+
+import { StyledText } from './StyledText'
+import { colors, fontSize } from '../config/themes/appThemes'
 
 interface RangeSliderProps {
   min: number
@@ -8,102 +11,106 @@ interface RangeSliderProps {
   onValueChange: (values: [number, number]) => void
 }
 
-const RangeSlider: React.FC<RangeSliderProps> = ({ min, max, onValueChange }) => {
+export const RangeSlider: React.FC<RangeSliderProps> = (props) => {
+  const { min, max, onValueChange } = props
   const [range, setRange] = useState<[number, number]>([min, max])
 
-  const handleValueChange = (values: number | number[]) => {
-    const newRange = Array.isArray(values)
-      ? (values as [number, number])
-      : ([values, values] as [number, number])
-    setRange(newRange)
-    onValueChange(newRange)
-  }
-
-  const handleInputChange = (value: string, index: number) => {
+  const validateInput = (value: string, min: number, max: number): number => {
     let numValue = parseInt(value.replace(/[^0-9]/g, ''), 10)
     if (isNaN(numValue)) numValue = min
     if (numValue < min) numValue = min
     if (numValue > max) numValue = max
-
-    const newRange = [...range] as [number, number]
-    newRange[index] = numValue
-    setRange(newRange)
-    onValueChange(newRange)
+    return numValue
   }
 
+  const handleValueChange = useCallback(
+    (values: number | number[]) => {
+      const newRange = Array.isArray(values)
+        ? (values as [number, number])
+        : ([values, values] as [number, number])
+      setRange(newRange)
+      onValueChange(newRange)
+    },
+    [onValueChange],
+  )
+
+  const handleInputChange = useCallback(
+    (value: string, index: number) => {
+      const numValue = validateInput(value, min, max)
+      const newRange = [...range] as [number, number]
+      newRange[index] = numValue
+      setRange(newRange)
+      onValueChange(newRange)
+    },
+    [min, max, range, onValueChange],
+  )
+
   return (
-    <View style={styles.outerContainer}>
-      <View style={styles.container}>
-        <View style={styles.row}>
-          <Text style={styles.label}>From</Text>
-          <Text style={styles.label}>To</Text>
-        </View>
-        <View style={styles.row}>
-          <TextInput
-            style={styles.input}
-            value={range[0].toString()}
-            onChangeText={(value) => handleInputChange(value, 0)}
-            keyboardType="numeric"
-          />
-          <Text style={styles.separator}>-</Text>
-          <TextInput
-            style={styles.input}
-            value={range[1].toString()}
-            onChangeText={(value) => handleInputChange(value, 1)}
-            keyboardType="numeric"
-          />
-        </View>
-        <Slider
-          value={range}
-          onValueChange={handleValueChange}
-          minimumValue={min}
-          maximumValue={max}
-          step={1}
-          trackStyle={styles.track}
-          thumbStyle={styles.thumb}
-          minimumTrackTintColor="#0085FF"
-          maximumTrackTintColor="#d3d3d3"
+    <View style={styles.container}>
+      <View style={styles.row}>
+        <StyledText body1 neutral40>
+          From
+        </StyledText>
+        <StyledText body1 neutral40>
+          To
+        </StyledText>
+      </View>
+      <View style={styles.row}>
+        <TextInput
+          style={styles.input}
+          value={range[0].toString()}
+          onChangeText={(value) => handleInputChange(value, 0)}
+          keyboardType="numeric"
+        />
+        <View style={styles.separator}></View>
+        <TextInput
+          style={styles.input}
+          value={range[1].toString()}
+          onChangeText={(value) => handleInputChange(value, 1)}
+          keyboardType="numeric"
         />
       </View>
+      <Slider
+        value={range}
+        onValueChange={handleValueChange}
+        minimumValue={min}
+        maximumValue={max}
+        step={1}
+        trackStyle={styles.track}
+        thumbStyle={styles.thumb}
+        minimumTrackTintColor={colors.blueBase}
+        maximumTrackTintColor={colors.neutral40}
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  outerContainer: {
-    padding: 10,
-    backgroundColor: '#f0f0f0',
-  },
   container: {
-    padding: 20,
+    backgroundColor: colors.white,
+    paddingVertical: 24,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    columnGap: 53,
     marginBottom: 20,
   },
   input: {
+    flex: 1,
     borderWidth: 1,
-    borderColor: '#d3d3d3',
+    borderColor: colors.neutral40,
     borderRadius: 4,
-    paddingLeft: 15,
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingRight: 15,
-    width: '40%',
+    padding: 8,
     textAlign: 'center',
-    color: '#000',
-    fontSize: 16,
+    color: colors.black,
+    fontSize: fontSize.body2,
   },
   separator: {
-    fontSize: 18,
-    color: '#a3a3a3',
-    marginHorizontal: 10,
-  },
-  label: {
-    fontSize: 14,
-    color: '#a3a3a3',
+    width: 20,
+    height: 1,
+    backgroundColor: colors.neutral40,
   },
   track: {
     height: 4,
@@ -112,9 +119,7 @@ const styles = StyleSheet.create({
   thumb: {
     width: 20,
     height: 20,
-    borderRadius: 10,
-    backgroundColor: '#0085FF',
+    borderRadius: 100,
+    backgroundColor: colors.blueBase,
   },
 })
-
-export default RangeSlider
