@@ -3,7 +3,7 @@ import { ViewStyle } from 'react-native'
 export interface StyledTextProps {
   children: React.ReactNode
   largeTitle?: boolean
-  style?: ViewStyle
+  style?: ViewStyle | object
   title1?: boolean
   title2?: boolean
   subtitle1?: boolean

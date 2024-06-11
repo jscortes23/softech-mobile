@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   secondary: {
-    backgroundColor: colors.brand10,
+    backgroundColor: colors.neutral10,
     color: colors.black,
   },
   alternative: {

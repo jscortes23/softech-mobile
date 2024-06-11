@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     color: colors.neutralBase,
   },
   valid: {
-    borderColor: colors.greenBase,
+    borderColor: '#00ff12',
   },
   invalid: {
     borderColor: colors.redBase,

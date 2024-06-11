@@ -11,7 +11,7 @@ const data = {
   subscribers: {
     title: 'Subscribers',
     quantity: 12000,
-    color: [colors.brandBase, colors.brand10],
+    color: [colors.neutral100, colors.neutral10],
     trend: 100,
     trendDirection: 'up',
   },
@@ -32,7 +32,7 @@ const data = {
   revenue: {
     title: 'Revenue',
     quantity: 108000,
-    color: [colors.pinkBase, colors.pink10],
+    color: [colors.blue100, colors.blue80],
     trend: 50000,
     trendDirection: 'up',
   },
