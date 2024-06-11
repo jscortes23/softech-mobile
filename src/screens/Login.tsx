@@ -13,7 +13,7 @@ import { colors, fontSize } from '../config/themes/appThemes'
 
 export const Login = () => {
   return (
-    <BgTwoColor colors={[colors.blueBase, colors.brand10]}>
+    <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
       <ContainerMain>
         <View style={styles.header}>
           <StyledText subtitle1 white bold>

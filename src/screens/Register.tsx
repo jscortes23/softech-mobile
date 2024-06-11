@@ -36,7 +36,7 @@ export const Register: React.FC = () => {
   ]
 
   return (
-    <BgTwoColor colors={[colors.blueBase, colors.brand10]}>
+    <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
       <ContainerMain>
         <View style={styles.header}>
           <StyledText subtitle1 white bold>
