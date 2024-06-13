@@ -35,7 +35,6 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 100,
     rowGap: 10,
   },
   header: {
