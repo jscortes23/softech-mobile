@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
+    textShadowColor: '#000000',
   },
 })
 
