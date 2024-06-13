@@ -4,6 +4,7 @@ import { ButtonAction } from '../components/ButtonAction'
 import { ContainerMain } from '../components/ContainerMain'
 import { GridView } from '../components/GridView'
 import { ResultProduct } from '../components/ResultProduct'
+import { StyledText } from '../components/StyledText'
 import { ChevronDownIcon, SettingsIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 
@@ -56,6 +57,14 @@ export const Products: React.FC = () => {
         <ButtonAction text="Filters" icon={<SettingsIcon height={18} width={16} />} />
         <ButtonAction text="By rating" icon={<ChevronDownIcon height={18} width={16} />} />
       </View>
+      <View style={styles.searchQuantity}>
+        <StyledText neutralBase subtitle1>
+          Products Result:
+        </StyledText>
+        <StyledText black title2>
+          85
+        </StyledText>
+      </View>
       {/* Solucion temporal al renderizado de la ultima fila del componente */}
       <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
         <GridView
@@ -76,9 +85,15 @@ export const Products: React.FC = () => {
 const styles = StyleSheet.create({
   buttonAction: {
     paddingTop: 40,
-    paddingBottom: 24,
     marginHorizontal: 8,
     columnGap: 16,
     flexDirection: 'row',
+  },
+  searchQuantity: {
+    marginHorizontal: 8,
+    marginVertical: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 8,
   },
 })
