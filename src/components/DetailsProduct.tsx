@@ -12,63 +12,52 @@ interface DetailsProductProps {
   brand: string
 }
 
-export const DetailsProduct: React.FC<DetailsProductProps> = ({
-  description,
-  category,
-  dimensions,
-  weight,
-  brand,
-}) => {
+export const DetailsProduct: React.FC<DetailsProductProps> = (props) => {
+  const { description, category, dimensions, weight, brand } = props
   return (
     <View style={styles.container}>
-      <StyledText black title2 style={styles.title}>
+      <StyledText black title2>
         Description
       </StyledText>
       <StyledText neutral80 body2 style={styles.description}>
         {description}
       </StyledText>
-      <StyledText black title2 style={styles.detailsTitle}>
-        Details
-      </StyledText>
-      <View style={styles.detailRow}>
-        <StyledText neutral80 body2 style={styles.detailLabel}>
-          Category
-        </StyledText>
-        <StyledText neutral80 body2 style={styles.detailValue}>
-          {category}
-        </StyledText>
-      </View>
+
       <View style={styles.detailsContainer}>
+        <StyledText black title2>
+          Details
+        </StyledText>
         <View style={styles.detailRow}>
-          <StyledText neutral80 body2 style={styles.detailLabel}>
+          <StyledText neutral80 body2>
+            Category
+          </StyledText>
+          <StyledText neutral80 body2>
+            {category}
+          </StyledText>
+        </View>
+        <View style={styles.detailRow}>
+          <StyledText neutral80 body2>
             Dimensions
           </StyledText>
-          <StyledText neutral80 body2 style={styles.detailValue}>
+          <StyledText neutral80 body2>
             {dimensions}
           </StyledText>
         </View>
-        <View style={styles.detailsContainer}>
-          <View style={styles.detailRow}>
-            <StyledText neutral80 body2 style={styles.detailLabel}>
-              Weight
-            </StyledText>
-            <StyledText neutral80 body2 style={styles.detailValue}>
-              {weight}
-            </StyledText>
-          </View>
-          <View style={styles.detailsContainer}>
-            <View style={styles.detailRow}>
-              <StyledText neutral80 body2 style={styles.detailLabel}>
-                Brand
-              </StyledText>
-              <StyledText neutral80 body2 style={styles.detailValue}>
-                {brand}
-              </StyledText>
-            </View>
-            <View style={styles.detailsContainer}>
-              <View style={styles.detailRow}></View>
-            </View>
-          </View>
+        <View style={styles.detailRow}>
+          <StyledText neutral80 body2>
+            Weight
+          </StyledText>
+          <StyledText neutral80 body2>
+            {weight}
+          </StyledText>
+        </View>
+        <View style={styles.detailRow}>
+          <StyledText neutral80 body2>
+            Brand
+          </StyledText>
+          <StyledText neutral80 body2>
+            {brand}
+          </StyledText>
         </View>
       </View>
     </View>
@@ -77,36 +66,23 @@ export const DetailsProduct: React.FC<DetailsProductProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingVertical: 48,
+    paddingHorizontal: 24,
     backgroundColor: colors.white,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.neutral40,
-  },
-  title: {
-    marginBottom: 24,
+    rowGap: 32,
   },
   description: {
-    marginBottom: 24,
     lineHeight: 20,
   },
-  detailsTitle: {
-    marginBottom: 8,
-  },
   detailsContainer: {
-    borderTopWidth: 1,
-    borderTopColor: colors.neutral40,
-    paddingTop: 16,
+    rowGap: 24,
   },
   detailRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 8,
-  },
-  detailLabel: {
-    fontWeight: '600',
-  },
-  detailValue: {
-    fontWeight: '400',
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.neutral40,
   },
 })
