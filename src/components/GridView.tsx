@@ -1,7 +1,5 @@
 import { StyleSheet, View } from 'react-native'
 
-import { widthDevice } from '../config/constants/dimesionsDevice'
-
 interface GridViewProps<T> {
   data: T[]
   RenderItem(item: T): React.ReactNode
@@ -26,7 +24,7 @@ export const GridView = <T extends any>(props: GridViewProps<T>) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: widthDevice,
+    width: '100%',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
