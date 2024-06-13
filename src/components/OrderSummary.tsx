@@ -1,96 +1,95 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+
+import { ButtonPrimary } from '../components/ButtonPrimary'
+import { StyledText } from '../components/StyledText'
+import { colors } from '../config/themes/appThemes'
+import { formatPrice } from '../utils/formatPrice'
 
 interface OrderSummaryProps {
-  subtotal: number
   iva: number
-  discountPercentage: number
+  discountPercentage?: number
   prices: number[]
 }
 
-export const OrderSummary: React.FC<OrderSummaryProps> = ({
-  subtotal,
-  iva,
-  discountPercentage,
-  prices,
-}) => {
+export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
+  const { iva, discountPercentage = 0, prices } = props
+
+  const subtotal = prices.reduce((a, b) => a + b, 0)
+
   const discount = (subtotal * discountPercentage) / 100
-  const total = subtotal - discount + iva
+
+  const ivaCalculated = (subtotal - discount) * (iva / 100)
+
+  const total = subtotal - discount + ivaCalculated
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Order Summary</Text>
-      <View style={styles.row}>
-        <Text style={styles.label}>Porcentaje de descuento</Text>
-        <Text style={styles.value}>{discountPercentage}%</Text>
+      <StyledText subtitle1 bold>
+        Order Summary
+      </StyledText>
+      <View style={styles.content}>
+        <View style={styles.row}>
+          <StyledText body1 neutral80>
+            Porcentaje de descuento
+          </StyledText>
+          <StyledText body1 bold>
+            {discountPercentage}%
+          </StyledText>
+        </View>
+        <View style={styles.row}>
+          <StyledText body1 neutral80>
+            Descuento
+          </StyledText>
+          <StyledText body1 bold>
+            {formatPrice(discount)}
+          </StyledText>
+        </View>
+        <View style={styles.row}>
+          <StyledText body1 neutral80>
+            IVA
+          </StyledText>
+          <StyledText body1 bold>
+            {iva}%
+          </StyledText>
+        </View>
+        <View style={styles.row}>
+          <StyledText body1 bold>
+            Subtotal
+          </StyledText>
+          <StyledText body1 bold>
+            {formatPrice(subtotal)}
+          </StyledText>
+        </View>
+        <View style={styles.row}>
+          <StyledText body1 bold>
+            Total
+          </StyledText>
+          <StyledText body1 bold>
+            {formatPrice(total)}
+          </StyledText>
+        </View>
       </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Descuento</Text>
-        <Text style={styles.value}>${discount.toFixed(2)}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>IVA</Text>
-        <Text style={styles.value}>${iva.toFixed(2)}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={[styles.boldText, styles.label]}>Subtotal</Text>
-        <Text style={[styles.boldText, styles.value]}>${subtotal.toFixed(2)}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={[styles.boldText, styles.label]}>Total</Text>
-        <Text style={[styles.boldText, styles.value]}>${total.toFixed(2)}</Text>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Checkout pressed')}>
-        <Text style={styles.buttonText}>Checkout</Text>
-      </TouchableOpacity>
+      <ButtonPrimary variant="primary" text="Checkout" />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-    backgroundColor: '#fff',
+    paddingVertical: 56,
+    paddingHorizontal: 16,
+    borderWidth: 0.5,
+    borderColor: colors.neutral40,
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    borderColor: '#ddd',
-    borderWidth: 1,
-    width: '90%',
-    alignSelf: 'center',
+    backgroundColor: colors.white,
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-    color: '#333',
+  content: {
+    rowGap: 16,
+    marginTop: 40,
+    marginBottom: 46,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  label: {
-    color: '#555',
-  },
-  value: {
-    color: '#111',
-  },
-  boldText: {
-    fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 12,
-    borderRadius: 5,
-    marginTop: 16,
-  },
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontWeight: 'bold',
   },
 })
