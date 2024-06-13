@@ -17,32 +17,39 @@ export const ResultProduct: React.FC<ResultProductProps> = (props) => {
   const { productName, productImage, productPrice, onAddToCart, onBuyNow } = props
 
   return (
-    <View style={styles.card}>
-      <Pressable onPress={onAddToCart} style={styles.icon}>
-        <CartIcon height={32} width={32} />
-      </Pressable>
-      <Image source={{ uri: productImage }} style={styles.image} />
-      <View style={styles.cardContent}>
-        <StyledText body2 center>
-          {productName}
-        </StyledText>
-        <StyledText title2 bold center>
-          ${productPrice}
-        </StyledText>
-        <ButtonPrimary onPress={onBuyNow} text="Buy Now" variant="primary" />
+    <View style={styles.container}>
+      <View style={styles.card}>
+        <Pressable onPress={onAddToCart} style={styles.icon}>
+          <CartIcon height={32} width={32} />
+        </Pressable>
+        <Image source={{ uri: productImage }} style={styles.image} />
+        <View style={styles.cardContent}>
+          <StyledText body2 center>
+            {productName}
+          </StyledText>
+          <StyledText title2 bold center>
+            ${productPrice}
+          </StyledText>
+        </View>
       </View>
+      <ButtonPrimary onPress={onBuyNow} text="Buy Now" variant="primary" />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  card: {
-    alignItems: 'center',
+  container: {
+    backgroundColor: colors.neutral10,
     paddingHorizontal: 12,
     paddingVertical: 24,
+    justifyContent: 'space-between',
+    flex: 1,
     rowGap: 8,
+  },
+  card: {
+    alignItems: 'center',
     borderRadius: 8,
-    backgroundColor: colors.neutral10,
+    rowGap: 8,
   },
   icon: {
     alignSelf: 'flex-end',

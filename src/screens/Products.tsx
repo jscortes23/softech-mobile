@@ -1,7 +1,11 @@
-import { FlatList, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
-import { ProductList } from '../components/ProductList'
+import { ButtonAction } from '../components/ButtonAction'
+import { ContainerMain } from '../components/ContainerMain'
+import { GridView } from '../components/GridView'
 import { ResultProduct } from '../components/ResultProduct'
+import { ChevronDownIcon, SettingsIcon } from '../components/icons/Icons'
+import { colors } from '../config/themes/appThemes'
 
 const products = [
   {
@@ -47,20 +51,34 @@ const products = [
 
 export const Products: React.FC = () => {
   return (
-    <View>
-      <ProductList name="Products">
-        <FlatList
+    <ContainerMain backgroundColor={colors.white}>
+      <View style={styles.buttonAction}>
+        <ButtonAction text="Filters" icon={<SettingsIcon height={18} width={16} />} />
+        <ButtonAction text="By rating" icon={<ChevronDownIcon height={18} width={16} />} />
+      </View>
+      {/* Solucion temporal al renderizado de la ultima fila del componente */}
+      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
+        <GridView
           data={products}
-          renderItem={({ item }) => (
+          RenderItem={(item) => (
             <ResultProduct
               productName={item.name}
-              productPrice={item.price}
               productImage={item.image}
+              productPrice={item.price}
             />
           )}
-          keyExtractor={(item) => item.id}
         />
-      </ProductList>
-    </View>
+      </ScrollView>
+    </ContainerMain>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonAction: {
+    paddingTop: 40,
+    paddingBottom: 24,
+    marginHorizontal: 8,
+    columnGap: 16,
+    flexDirection: 'row',
+  },
+})
