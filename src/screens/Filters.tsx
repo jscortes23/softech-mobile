@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 
-import { Filters } from './Filters'
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { Checkbox } from '../components/Checkbox'
 import { ContainerMain } from '../components/ContainerMain'
