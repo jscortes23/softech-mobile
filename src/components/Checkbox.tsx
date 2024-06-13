@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { StyleSheet, Pressable, View } from 'react-native'
 
 import { StyledText } from './StyledText'
@@ -7,10 +7,10 @@ import { colors } from '../config/themes/appThemes'
 interface CheckboxProps {
   onChange?: (value: string) => void
   value: string
-  textColor?: string
 }
 
-export const Checkbox: React.FC<CheckboxProps> = ({ onChange, value, textColor }) => {
+export const Checkbox: React.FC<CheckboxProps> = (props) => {
+  const { onChange, value } = props
   const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const toggleCheckbox = () => {
@@ -25,8 +25,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({ onChange, value, textColor }
           {isChecked ? '✔' : ''}
         </StyledText>
       </View>
-
-      <StyledText style={[styles.checkboxText, textColor && { color: textColor }]}>
+      <StyledText neutralBase body2>
         {value}
       </StyledText>
     </Pressable>
@@ -40,23 +39,14 @@ const styles = StyleSheet.create({
     columnGap: 8,
   },
   checkbox: {
-    width: 16.33,
-    height: 15.67,
+    width: 20,
+    height: 20,
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#BBCAD2',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: colors.neutralBase,
   },
   checked: {
     backgroundColor: colors.blueBase,
     borderColor: colors.blueBase,
   },
-  checkboxText: {
-    fontSize: 16,
-    color: '#000000',
-    marginLeft: 8,
-  },
 })
-
-export default Checkbox
