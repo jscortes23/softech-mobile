@@ -25,7 +25,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
           {isChecked ? '✔' : ''}
         </StyledText>
       </View>
-      <StyledText neutralBase caption1>
+      <StyledText neutralBase body2>
         {value}
       </StyledText>
     </Pressable>
