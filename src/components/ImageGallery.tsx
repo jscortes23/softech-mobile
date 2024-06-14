@@ -18,14 +18,20 @@ export const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
     const isSelected = image.src === selectedImage
     return (
       <Pressable key={image.id} onPress={() => setSelectedImage(image.src)}>
-        <Image source={image.src} style={[styles.thumbnail, { opacity: isSelected ? 1 : 0.4 }]} />
+        <Image
+          source={typeof image.src === 'string' ? { uri: image.src } : image.src}
+          style={[styles.thumbnail, { opacity: isSelected ? 1 : 0.4 }]}
+        />
       </Pressable>
     )
   }
 
   return (
     <View style={styles.container}>
-      <Image source={selectedImage} style={styles.mainImage} />
+      <Image
+        source={typeof selectedImage === 'string' ? { uri: selectedImage } : selectedImage}
+        style={styles.mainImage}
+      />
       <FlatList
         contentContainerStyle={styles.thumbnailContainer}
         horizontal
