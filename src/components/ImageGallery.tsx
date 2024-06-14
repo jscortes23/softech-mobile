@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
-import { View, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
+import { useState } from 'react'
+import { View, Image, StyleSheet, FlatList, Pressable } from 'react-native'
 
-const images = [
-  { id: 1, src: require('../../assets/imagenes/celular1.jpg') },
-  { id: 2, src: require('../../assets/imagenes/celular2.jpg') },
-  { id: 3, src: require('../../assets/imagenes/celular3.jpg') },
-  { id: 4, src: require('../../assets/imagenes/celular4.jpg') },
-]
+type ImageType = {
+  id: number
+  src: NodeRequire | string
+}
 
-export const ImageGallery = () => {
+interface ImageGalleryProps {
+  images: ImageType[]
+}
+
+export const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
+  const { images } = props
   const [selectedImage, setSelectedImage] = useState(images[0].src)
+
+  const renderItem = (image: any) => {
+    const isSelected = image.src === selectedImage
+    return (
+      <Pressable key={image.id} onPress={() => setSelectedImage(image.src)}>
+        <Image source={image.src} style={[styles.thumbnail, { opacity: isSelected ? 1 : 0.4 }]} />
+      </Pressable>
+    )
+  }
 
   return (
     <View style={styles.container}>
       <Image source={selectedImage} style={styles.mainImage} />
-      <ScrollView horizontal contentContainerStyle={styles.thumbnailContainer}>
-        {images.map((image) => (
-          <TouchableOpacity key={image.id} onPress={() => setSelectedImage(image.src)}>
-            <Image source={image.src} style={styles.thumbnail} />
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <FlatList
+        contentContainerStyle={styles.thumbnailContainer}
+        horizontal
+        data={images}
+        renderItem={({ item }) => renderItem(item)}
+      />
     </View>
   )
 }
@@ -28,25 +39,19 @@ export const ImageGallery = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+    rowGap: 30,
   },
   mainImage: {
-    width: 300,
-    height: 300,
-    marginBottom: 20,
+    width: 200,
+    height: 200,
+    marginHorizontal: 'auto',
   },
   thumbnailContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'space-between',
   },
   thumbnail: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#ccc',
+    width: 66,
+    height: 66,
   },
 })
