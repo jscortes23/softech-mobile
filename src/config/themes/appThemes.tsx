@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 export const fontSize = {
-  largeTitle: 42,
+  largeTitle: 72,
   title1: 32,
   title2: 24,
   subtitle1: 20,

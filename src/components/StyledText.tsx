@@ -24,6 +24,7 @@ export const StyledText: React.FC<StyledTextProps> = (props) => {
     props.red80 && styleColors.red80,
     props.red100 && styleColors.red100,
     props.redBase && styleColors.redBase,
+    props.neutral10 && styleColors.neutral10,
     props.neutral40 && styleColors.neutral40,
     props.neutral80 && styleColors.neutral80,
     props.neutral100 && styleColors.neutral100,
