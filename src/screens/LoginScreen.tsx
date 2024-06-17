@@ -11,7 +11,7 @@ import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
 
-export const Login = () => {
+export const LoginScreen = () => {
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
       <ContainerMain>
