@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { Checkbox } from '../components/Checkbox'
@@ -7,8 +8,13 @@ import { Dropdown } from '../components/Dropdown'
 import { RangeSlider } from '../components/RangeSlider'
 import { Search } from '../components/Search'
 import { colors } from '../config/themes/appThemes'
+import { StackParamList } from '../navigators/StackNavigation'
 
-export const Filters = () => {
+type FiltersProps = NativeStackScreenProps<StackParamList, 'Filters'>
+
+export const FiltersScreen: React.FC<FiltersProps> = (props) => {
+  const { navigation } = props
+
   return (
     <ContainerMain flex={1} backgroundColor={colors.white}>
       <View style={styles.container}>
@@ -45,7 +51,11 @@ export const Filters = () => {
         </Dropdown>
       </View>
       <View style={styles.button}>
-        <ButtonPrimary text="Apply" variant="primary" />
+        <ButtonPrimary
+          text="Apply"
+          variant="primary"
+          onPress={() => navigation.navigate('Products')}
+        />
       </View>
     </ContainerMain>
   )

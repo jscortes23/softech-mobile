@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native'
 
-export const Inquiries = () => {
+export const CartScreen = () => {
   return (
     <View>
-      <Text>Vista de Inquiries</Text>
+      <Text>Vista de CartScreen</Text>
     </View>
   )
 }

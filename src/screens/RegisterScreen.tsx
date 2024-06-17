@@ -12,7 +12,7 @@ import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 
-export const Register: React.FC = () => {
+export const RegisterScreen: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date())
   const [show, setShow] = useState<boolean>(false)
   const [city, setCity] = useState<number>(0)

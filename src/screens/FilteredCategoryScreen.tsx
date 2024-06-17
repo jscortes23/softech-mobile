@@ -1,12 +1,13 @@
+import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
-import { ButtonAction } from '../components/ButtonAction'
 import { ContainerMain } from '../components/ContainerMain'
 import { GridView } from '../components/GridView'
 import { ResultProduct } from '../components/ResultProduct'
 import { StyledText } from '../components/StyledText'
-import { ChevronDownIcon, SettingsIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { StackParamList } from '../navigators/StackNavigation'
 
 const products = [
   {
@@ -50,13 +51,13 @@ const products = [
   },
 ]
 
-export const Products: React.FC = () => {
+type FilteredCategoryProps = NativeStackScreenProps<StackParamList, 'FilteredCategory'>
+
+export const FilteredCategoryScreen: React.FC<FilteredCategoryProps> = (props) => {
+  const { navigation } = props
+
   return (
     <ContainerMain backgroundColor={colors.white}>
-      <View style={styles.buttonAction}>
-        <ButtonAction text="Filters" icon={<SettingsIcon height={18} width={16} />} />
-        <ButtonAction text="By rating" icon={<ChevronDownIcon height={18} width={16} />} />
-      </View>
       <View style={styles.searchQuantity}>
         <StyledText neutralBase subtitle1>
           Products Result:
@@ -66,7 +67,7 @@ export const Products: React.FC = () => {
         </StyledText>
       </View>
       {/* Solucion temporal al renderizado de la ultima fila del componente */}
-      <ScrollView contentContainerStyle={{ paddingBottom: 130 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 180 }}>
         <GridView
           data={products}
           RenderItem={(item) => (
@@ -74,6 +75,7 @@ export const Products: React.FC = () => {
               productName={item.name}
               productImage={item.image}
               productPrice={item.price}
+              onBuyNow={() => navigation.navigate('ProductDetails')}
             />
           )}
         />
@@ -83,12 +85,6 @@ export const Products: React.FC = () => {
 }
 
 const styles = StyleSheet.create({
-  buttonAction: {
-    paddingTop: 40,
-    marginHorizontal: 8,
-    columnGap: 16,
-    flexDirection: 'row',
-  },
   searchQuantity: {
     marginHorizontal: 8,
     marginVertical: 24,
