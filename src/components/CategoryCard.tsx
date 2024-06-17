@@ -1,7 +1,7 @@
+import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import { StyledText } from './StyledText'
-import { colors } from '../config/themes/appThemes'
 
 interface CategoryCardProps {
   onPress?: () => void
@@ -9,11 +9,10 @@ interface CategoryCardProps {
   name: string
 }
 
-export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
-  const { onPress, icon, name } = props
+export const CategoryCard: React.FC<CategoryCardProps> = ({ onPress, icon, name }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <View>{icon}</View>
+      <View style={styles.iconContainer}>{icon}</View>
       <StyledText center black>
         {name}
       </StyledText>
@@ -23,17 +22,24 @@ export const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: 160,
+    width: 141,
+    height: 180,
     alignItems: 'center',
     justifyContent: 'center',
-    rowGap: 8,
-    paddingVertical: 24,
-    borderRadius: 8,
-    backgroundColor: colors.neutral10,
-    shadowColor: colors.black,
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 1,
+    marginHorizontal: 10,
+    marginBottom: 100,
+    paddingVertical: 10,
+    borderRadius: 12,
+    backgroundColor: '#F4F8FA',
+    shadowColor: '#000000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 2,
     elevation: 2,
   },
+  iconContainer: {
+    marginBottom: 10,
+  },
 })
+
+export default CategoryCard
