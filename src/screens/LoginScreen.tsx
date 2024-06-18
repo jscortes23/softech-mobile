@@ -21,17 +21,6 @@ export const LoginScreen = () => {
           </StyledText>
           <BellIcon width={19} height={22} color={colors.white} />
         </View>
-
-        <View style={styles.head}>
-          <StyledText title1 center white>
-            The fastest most & convenient way
-          </StyledText>
-          <StyledText body2 center white>
-            Dedicated virtual-consultation platform for doctors & patients to help them consult
-            across various channels
-          </StyledText>
-        </View>
-
         <View style={[styles.formContainer, styles.shadowProp]}>
           <StyledText title2 center>
             Welcome to <StyledText blueBase>X Firm</StyledText>
