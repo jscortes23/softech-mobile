@@ -44,7 +44,6 @@ export const ImageGallery: React.FC<ImageGalleryProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     rowGap: 30,
   },
   mainImage: {
