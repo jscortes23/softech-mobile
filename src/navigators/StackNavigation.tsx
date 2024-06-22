@@ -17,6 +17,7 @@ export type StackParamList = {
   Filters: undefined
   FilteredCategory: undefined
   ProductDetails: undefined
+  Cart: undefined
 }
 
 const Stack = createStackNavigator<StackParamList>()
