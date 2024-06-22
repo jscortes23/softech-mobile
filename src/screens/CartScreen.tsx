@@ -1,8 +1,12 @@
-import React from 'react'
-import { FlatList, StyleSheet, Text, ScrollView, View } from 'react-native'
+import { FlatList, StyleSheet, ScrollView, View } from 'react-native'
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { CardProduct } from '../components/CardProduct'
+import { ContainerMain } from '../components/ContainerMain'
 import { OrderSummary } from '../components/OrderSummary'
+import { StyledText } from '../components/StyledText'
+import { colors } from '../config/themes/appThemes'
+import { StackParamList } from '../navigators/StackNavigation'
 
 const products = [
   {
@@ -25,65 +29,50 @@ const products = [
   },
 ]
 
-export const CartScreen = () => {
+type CartScreenProps = NativeStackScreenProps<StackParamList, 'Cart'>
+
+export const CartScreen: React.FC<CartScreenProps> = (props) => {
   const prices = products.map((product) => product.price)
 
-  const handleProductChange = (id: string, value: number) => {}
-
-  const handleProductDelete = (id: string) => {}
-
   const renderProduct = (item: { id: any; name: any; price: any; src: any }) => (
-    <CardProduct
-      key={item.id}
-      imageUrl={item.src}
-      name={item.name}
-      price={item.price}
-      onChange={(value) => handleProductChange(item.id, value)}
-      onDelete={() => handleProductDelete(item.id)}
-    />
+    <CardProduct key={item.id} imageUrl={item.src} name={item.name} price={item.price} />
   )
 
   const renderSeparator = () => <View style={styles.separator} />
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.title}>Shopping Cart</Text>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ContainerMain>
+        <StyledText title2 style={styles.title}>
+          Shopping Cart
+        </StyledText>
         <FlatList
+          scrollEnabled={false}
           data={products}
           renderItem={({ item }) => renderProduct(item)}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={renderSeparator}
-          contentContainerStyle={styles.listContent}
         />
         <OrderSummary iva={21} discountPercentage={10} prices={prices} />
-      </ScrollView>
-    </View>
+      </ContainerMain>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
-  },
-  scrollContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.white,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    marginHorizontal: 16,
+    marginBottom: 20,
   },
-  listContent: {
-    paddingBottom: 16,
-    paddingHorizontal: 26,
+  scrollContainer: {
+    backgroundColor: colors.white,
+    paddingBottom: 20,
   },
   separator: {
     height: 1,
-    backgroundColor: '#cccccc',
+    backgroundColor: colors.neutral40,
   },
 })
-
-export default CartScreen
