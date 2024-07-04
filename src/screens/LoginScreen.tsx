@@ -1,5 +1,6 @@
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { Checkbox } from '../components/Checkbox'
@@ -10,8 +11,13 @@ import { StyledText } from '../components/StyledText'
 import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
+import { StackParamList } from '../navigators/StackNavigation'
 
-export const LoginScreen = () => {
+type LoginScreenProps = NativeStackScreenProps<StackParamList, 'Login'>
+
+export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
+  const { navigation } = props
+
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
       <ContainerMain>
@@ -49,7 +55,11 @@ export const LoginScreen = () => {
             <StyledText neutralBase center subtitle2>
               No Account?
             </StyledText>
-            <Link value="Register Here" sizeText={fontSize.subtitle2} />
+            <Link
+              value="Register Here"
+              onPress={() => navigation.navigate('Register')}
+              sizeText={fontSize.subtitle2}
+            />
           </View>
         </View>
       </ContainerMain>

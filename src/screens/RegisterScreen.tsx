@@ -1,5 +1,5 @@
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Pressable, StyleSheet, View } from 'react-native'
 import { SelectList } from 'react-native-dropdown-select-list'
 
@@ -11,13 +11,15 @@ import { StyledText } from '../components/StyledText'
 import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { getCities } from '../services/cities'
 
 export const RegisterScreen: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date())
   const [show, setShow] = useState<boolean>(false)
-  const [city, setCity] = useState<number>(0)
+  const [city, setCity] = useState<number | null>(null)
+  const [cities, setCities] = useState<{ key: number; value: string }[]>([])
 
-  const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+  const onChange = (event: DateTimePickerEvent, selectedDate?: Date | undefined) => {
     setShow(false)
     if (selectedDate) {
       setDate(selectedDate)
@@ -28,12 +30,9 @@ export const RegisterScreen: React.FC = () => {
     setShow(true)
   }
 
-  const cities = [
-    { key: 1, value: 'Cali' },
-    { key: 2, value: 'Bogotá' },
-    { key: 3, value: 'Medellin' },
-    { key: 4, value: 'Cartagena' },
-  ]
+  useEffect(() => {
+    getCities().then((data) => setCities(data))
+  }, [])
 
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
@@ -91,7 +90,6 @@ export const RegisterScreen: React.FC = () => {
                 Select your city
               </StyledText>
               <SelectList
-                onSelect={() => alert(city)}
                 setSelected={(val: number) => setCity(val)}
                 data={cities}
                 save="key"
