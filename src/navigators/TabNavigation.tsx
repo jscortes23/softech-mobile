@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialComunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import { CategoriesStack, HomeStack, SearchStack } from './StackNavigation'
+import { CategoriesStack, HomeStack, SearchStack, UserStack } from './StackNavigation'
 import { colors } from '../config/themes/appThemes'
 // Screens
 import { CartScreen } from '../screens/CartScreen'
@@ -57,7 +57,7 @@ export const TabNavigation = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={LoginScreen}
+        component={UserStack}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" color={color} size={size} />

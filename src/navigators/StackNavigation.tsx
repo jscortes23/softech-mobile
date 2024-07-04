@@ -6,8 +6,10 @@ import { CategoriesScreen } from '../screens/CategoriesScreen'
 import { FilteredCategoryScreen } from '../screens/FilteredCategoryScreen'
 import { FiltersScreen } from '../screens/FiltersScreen'
 import { HomeScreen } from '../screens/HomeScreen'
+import { LoginScreen } from '../screens/LoginScreen'
 import { ProductDetailsScreen } from '../screens/ProductDetailsScreen'
 import { ProductsScreen } from '../screens/ProductsScreen'
+import { RegisterScreen } from '../screens/RegisterScreen'
 
 export type StackParamList = {
   Home: undefined
@@ -18,6 +20,8 @@ export type StackParamList = {
   FilteredCategory: undefined
   ProductDetails: undefined
   Cart: undefined
+  Login: undefined
+  Register: undefined
 }
 
 const Stack = createStackNavigator<StackParamList>()
@@ -59,6 +63,15 @@ export const SearchStack = () => {
       />
       <Stack.Screen name="Filters" component={FiltersScreen} />
       <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+    </Stack.Navigator>
+  )
+}
+
+export const UserStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   )
 }
