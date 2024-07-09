@@ -11,18 +11,36 @@ import { StyledText } from '../components/StyledText'
 import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { ClientType } from '../models/Client'
 import { getCities } from '../services/cities'
+import { getIdTypes } from '../services/typesId'
+import { formatDate } from '../utils/formatDate'
 
 export const RegisterScreen: React.FC = () => {
   const [date, setDate] = useState<Date>(new Date())
   const [show, setShow] = useState<boolean>(false)
-  const [city, setCity] = useState<number | null>(null)
+  const [idTypes, setIdTypes] = useState<{ key: number; value: string }[]>([])
   const [cities, setCities] = useState<{ key: number; value: string }[]>([])
+  const [client, setClient] = useState<ClientType>()
+
+  // useState para capturar valores del formulario
+  const [firstName, setFirstName] = useState<string>()
+  const [lastName, setLastName] = useState<string>()
+  const [idType, setIdType] = useState<number>()
+  const [idNumber, setIdNumber] = useState<string>()
+  const [email, setEmail] = useState<string>()
+  const [phone, setPhone] = useState<string>()
+  const [dateOfBirth, setDateOfBirth] = useState<string>()
+  const [city, setCity] = useState<number>()
+  const [address, setAddress] = useState<string>()
+  const [password, setPassword] = useState<string>()
+  const [confirmPassword, setConfirmPassword] = useState<string>()
 
   const onChange = (event: DateTimePickerEvent, selectedDate?: Date | undefined) => {
     setShow(false)
     if (selectedDate) {
       setDate(selectedDate)
+      setDateOfBirth(formatDate(selectedDate, 'yyyy-mm-dd'))
     }
   }
 
@@ -32,6 +50,7 @@ export const RegisterScreen: React.FC = () => {
 
   useEffect(() => {
     getCities().then((data) => setCities(data))
+    getIdTypes().then((data) => setIdTypes(data))
   }, [])
 
   return (
@@ -51,17 +70,52 @@ export const RegisterScreen: React.FC = () => {
             Sign up
           </StyledText>
           <View style={styles.input}>
-            <InputText label="Enter your first name" inputMode="text" placeholder="First name" />
-            <InputText label="Enter your last name" inputMode="text" placeholder="Last name" />
+            <InputText
+              label="Enter your first name"
+              inputMode="text"
+              placeholder="First name"
+              onChangeText={(text) => setFirstName(text)}
+            />
+            <InputText
+              label="Enter your last name"
+              inputMode="text"
+              placeholder="Last name"
+              onChangeText={(text) => setLastName(text)}
+            />
+            <View style={styles.dropdownStyle}>
+              <StyledText body1 neutralBase>
+                Select your id
+              </StyledText>
+              <SelectList
+                setSelected={(val: number) => setIdType(val)}
+                data={idTypes}
+                save="key"
+                searchPlaceholder="Search"
+                placeholder="Select a Id Type"
+                boxStyles={styles.boxStyle}
+                dropdownStyles={styles.boxStyle}
+                inputStyles={styles.inputStyle}
+                dropdownTextStyles={styles.inputStyle}
+              />
+            </View>
+            <InputText
+              label="Enter your number id type"
+              inputMode="numeric"
+              keyboardType="numeric"
+              placeholder="xxxxxxxxx"
+              onChangeText={(text) => setIdNumber(text)}
+            />
             <InputText
               label="Enter your email"
               inputMode="email"
               placeholder="example@example.com"
+              onChangeText={(text) => setEmail(text)}
             />
             <InputText
               label="Enter your phone number"
               inputMode="text"
               placeholder="Phone number"
+              onChangeText={(text) => setPhone(text)}
             />
             <View>
               <Pressable onPress={showDatePicker}>
@@ -101,18 +155,46 @@ export const RegisterScreen: React.FC = () => {
                 dropdownTextStyles={styles.inputStyle}
               />
             </View>
-            <InputText label="Enter your address" inputMode="text" placeholder="Address" />
-            <InputText label="Enter your password" placeholder="Password" secureTextEntry />
+            <InputText
+              label="Enter your address"
+              inputMode="text"
+              placeholder="Address"
+              onChangeText={(text) => setAddress(text)}
+            />
+            <InputText
+              label="Enter your password"
+              placeholder="Password"
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry
+            />
             <InputText
               label="Confirm your password"
               placeholder="Confirm Password"
+              onChangeText={(text) => setConfirmPassword(text)}
               secureTextEntry
             />
           </View>
           <View style={styles.optionsContainer}>
             <Checkbox value="Terms?" />
           </View>
-          <ButtonPrimary variant="primary" text="Sign up" onPress={() => Alert.alert('a')} />
+          <ButtonPrimary
+            variant="primary"
+            text="Sign up"
+            onPress={() =>
+              setClient({
+                email,
+                tipo_identificacion_id: idType,
+                numero_identificacion_cliente: idNumber,
+                nombre_cliente: firstName,
+                apellido_cliente: lastName,
+                password,
+                telefono_cliente: phone,
+                direccion_entrega_cliente: address,
+                fecha_nacimiento_cliente: dateOfBirth,
+                ciudad_id: city,
+              })
+            }
+          />
         </View>
       </ContainerMain>
     </BgTwoColor>
