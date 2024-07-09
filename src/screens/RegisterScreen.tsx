@@ -1,6 +1,6 @@
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import React, { useEffect, useState } from 'react'
-import { Alert, Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { SelectList } from 'react-native-dropdown-select-list'
 
 import { ButtonPrimary } from '../components/ButtonPrimary'
@@ -13,6 +13,7 @@ import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 import { ClientType } from '../models/Client'
 import { getCities } from '../services/cities'
+import { postRegister } from '../services/postRegister'
 import { getIdTypes } from '../services/typesId'
 import { formatDate } from '../utils/formatDate'
 
@@ -24,17 +25,17 @@ export const RegisterScreen: React.FC = () => {
   const [client, setClient] = useState<ClientType>()
 
   // useState para capturar valores del formulario
-  const [firstName, setFirstName] = useState<string>()
-  const [lastName, setLastName] = useState<string>()
-  const [idType, setIdType] = useState<number>()
-  const [idNumber, setIdNumber] = useState<string>()
-  const [email, setEmail] = useState<string>()
-  const [phone, setPhone] = useState<string>()
-  const [dateOfBirth, setDateOfBirth] = useState<string>()
-  const [city, setCity] = useState<number>()
-  const [address, setAddress] = useState<string>()
-  const [password, setPassword] = useState<string>()
-  const [confirmPassword, setConfirmPassword] = useState<string>()
+  const [firstName, setFirstName] = useState<string>('')
+  const [lastName, setLastName] = useState<string>('')
+  const [idType, setIdType] = useState<number>(0)
+  const [idNumber, setIdNumber] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [phone, setPhone] = useState<string>('')
+  const [dateOfBirth, setDateOfBirth] = useState<string>('')
+  const [city, setCity] = useState<number>(0)
+  const [address, setAddress] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
 
   const onChange = (event: DateTimePickerEvent, selectedDate?: Date | undefined) => {
     setShow(false)
@@ -48,10 +49,29 @@ export const RegisterScreen: React.FC = () => {
     setShow(true)
   }
 
+  const handleSubmit = () => {
+    setClient({
+      email,
+      tipo_identificacion_id: idType,
+      numero_identificacion_cliente: idNumber,
+      nombre_cliente: firstName,
+      apellido_cliente: lastName,
+      password,
+      telefono_cliente: phone,
+      direccion_entrega_cliente: address,
+      fecha_nacimiento_cliente: dateOfBirth,
+      ciudad_id: city,
+    })
+    if (!client) return
+    postRegister(client)
+  }
+
   useEffect(() => {
     getCities().then((data) => setCities(data))
     getIdTypes().then((data) => setIdTypes(data))
   }, [])
+
+  useEffect(() => { }, [client])
 
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
@@ -177,24 +197,9 @@ export const RegisterScreen: React.FC = () => {
           <View style={styles.optionsContainer}>
             <Checkbox value="Terms?" />
           </View>
-          <ButtonPrimary
-            variant="primary"
-            text="Sign up"
-            onPress={() =>
-              setClient({
-                email,
-                tipo_identificacion_id: idType,
-                numero_identificacion_cliente: idNumber,
-                nombre_cliente: firstName,
-                apellido_cliente: lastName,
-                password,
-                telefono_cliente: phone,
-                direccion_entrega_cliente: address,
-                fecha_nacimiento_cliente: dateOfBirth,
-                ciudad_id: city,
-              })
-            }
-          />
+          <ButtonPrimary variant="primary" text="Sign up" onPress={() => handleSubmit()} />
+
+          <ButtonPrimary variant="alternative" text="test" onPress={() => console.warn(client)} />
         </View>
       </ContainerMain>
     </BgTwoColor>
