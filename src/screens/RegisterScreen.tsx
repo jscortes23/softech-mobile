@@ -2,6 +2,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import React, { useEffect, useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { SelectList } from 'react-native-dropdown-select-list'
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { Checkbox } from '../components/Checkbox'
@@ -12,12 +13,19 @@ import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 import { ClientType } from '../models/Client'
+import { StackParamList } from '../navigators/StackNavigation'
 import { getCities } from '../services/cities'
 import { postRegister } from '../services/postRegister'
 import { getIdTypes } from '../services/typesId'
 import { formatDate } from '../utils/formatDate'
 
-export const RegisterScreen: React.FC = () => {
+type RegisterScreenProps = NativeStackScreenProps<StackParamList, 'Register'>
+
+export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
+  // Navegación
+  const { navigation } = props
+
+  // useState para controlar componentes
   const [date, setDate] = useState<Date>(new Date())
   const [show, setShow] = useState<boolean>(false)
   const [idTypes, setIdTypes] = useState<{ key: number; value: string }[]>([])
@@ -49,7 +57,8 @@ export const RegisterScreen: React.FC = () => {
     setShow(true)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // Crear cliente
     setClient({
       email,
       tipo_identificacion_id: idType,
@@ -62,16 +71,23 @@ export const RegisterScreen: React.FC = () => {
       fecha_nacimiento_cliente: dateOfBirth,
       ciudad_id: city,
     })
+
+    // Validar si se creo el cliente
     if (!client) return
-    postRegister(client)
+
+    // Usar el ENDPOINT para registrar el usuario
+    const newClient = await postRegister(client)
+
+    // Validar si se creo correctamente y redirigir
+    if (newClient.status) {
+      navigation.navigate('Home')
+    }
   }
 
   useEffect(() => {
     getCities().then((data) => setCities(data))
     getIdTypes().then((data) => setIdTypes(data))
   }, [])
-
-  useEffect(() => { }, [client])
 
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
@@ -198,8 +214,6 @@ export const RegisterScreen: React.FC = () => {
             <Checkbox value="Terms?" />
           </View>
           <ButtonPrimary variant="primary" text="Sign up" onPress={() => handleSubmit()} />
-
-          <ButtonPrimary variant="alternative" text="test" onPress={() => console.warn(client)} />
         </View>
       </ContainerMain>
     </BgTwoColor>
