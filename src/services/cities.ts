@@ -18,7 +18,7 @@ import { CityType } from '../models/City'
 
 export const getCities = async (): Promise<{ key: number; value: string; error: string }[]> => {
   // try {
-  const res = await fetch('http://192.168.71.221:8000/api/ciudades')
+  const res = await fetch('http://192.168.0.120:8000/api/ciudades')
   const data = await res.json()
 
   return data.map((city: CityType) => ({

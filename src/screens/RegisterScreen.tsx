@@ -12,6 +12,7 @@ import { StyledText } from '../components/StyledText'
 import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { useRegisterForm } from '../hooks/useRegisterForm'
 import { ClientType } from '../models/Client'
 import { StackParamList } from '../navigators/StackNavigation'
 import { getCities } from '../services/cities'
@@ -32,24 +33,14 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
   const [cities, setCities] = useState<{ key: number; value: string }[]>([])
   const [client, setClient] = useState<ClientType>()
 
-  // useState para capturar valores del formulario
-  const [firstName, setFirstName] = useState<string>('')
-  const [lastName, setLastName] = useState<string>('')
-  const [idType, setIdType] = useState<number>(0)
-  const [idNumber, setIdNumber] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [phone, setPhone] = useState<string>('')
-  const [dateOfBirth, setDateOfBirth] = useState<string>('')
-  const [city, setCity] = useState<number>(0)
-  const [address, setAddress] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  // hook para capturar valores del formulario
+  const { formData, handleChange } = useRegisterForm()
 
   const onChange = (event: DateTimePickerEvent, selectedDate?: Date | undefined) => {
     setShow(false)
     if (selectedDate) {
       setDate(selectedDate)
-      setDateOfBirth(formatDate(selectedDate, 'yyyy-mm-dd'))
+      handleChange('dateOfBirth', formatDate(selectedDate, 'yyyy-mm-dd'))
     }
   }
 
@@ -60,26 +51,26 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
   const handleSubmit = async () => {
     // Crear cliente
     setClient({
-      email,
-      tipo_identificacion_id: idType,
-      numero_identificacion_cliente: idNumber,
-      nombre_cliente: firstName,
-      apellido_cliente: lastName,
-      password,
-      telefono_cliente: phone,
-      direccion_entrega_cliente: address,
-      fecha_nacimiento_cliente: dateOfBirth,
-      ciudad_id: city,
+      email: formData.email,
+      tipo_identificacion_id: formData.idType,
+      numero_identificacion_cliente: formData.idNumber,
+      nombre_cliente: formData.firstName,
+      apellido_cliente: formData.lastName,
+      password: formData.password,
+      telefono_cliente: formData.phone,
+      direccion_entrega_cliente: formData.address,
+      fecha_nacimiento_cliente: formData.dateOfBirth,
+      ciudad_id: formData.idCity,
     })
 
     // Validar si se creo el cliente
     if (!client) return
 
     // Usar el ENDPOINT para registrar el usuario
-    const newClient = await postRegister(client)
+    const res = await postRegister(client)
 
     // Validar si se creo correctamente y redirigir
-    if (newClient.status) {
+    if (res.status) {
       navigation.navigate('Home')
     }
   }
@@ -110,20 +101,20 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
               label="Enter your first name"
               inputMode="text"
               placeholder="First name"
-              onChangeText={(text) => setFirstName(text)}
+              onChangeText={(text) => handleChange('firstName', text)}
             />
             <InputText
               label="Enter your last name"
               inputMode="text"
               placeholder="Last name"
-              onChangeText={(text) => setLastName(text)}
+              onChangeText={(text) => handleChange('lastName', text)}
             />
             <View style={styles.dropdownStyle}>
               <StyledText body1 neutralBase>
                 Select your id
               </StyledText>
               <SelectList
-                setSelected={(val: number) => setIdType(val)}
+                setSelected={(val: number) => handleChange('idType', val)}
                 data={idTypes}
                 save="key"
                 searchPlaceholder="Search"
@@ -139,19 +130,20 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
               inputMode="numeric"
               keyboardType="numeric"
               placeholder="xxxxxxxxx"
-              onChangeText={(text) => setIdNumber(text)}
+              onChangeText={(text) => handleChange('idNumber', text)}
             />
             <InputText
               label="Enter your email"
               inputMode="email"
+              keyboardType="email-address"
               placeholder="example@example.com"
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => handleChange('email', text)}
             />
             <InputText
               label="Enter your phone number"
               inputMode="text"
               placeholder="Phone number"
-              onChangeText={(text) => setPhone(text)}
+              onChangeText={(text) => handleChange('phone', text)}
             />
             <View>
               <Pressable onPress={showDatePicker}>
@@ -180,7 +172,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
                 Select your city
               </StyledText>
               <SelectList
-                setSelected={(val: number) => setCity(val)}
+                setSelected={(val: number) => handleChange('idCity', val)}
                 data={cities}
                 save="key"
                 searchPlaceholder="Search"
@@ -195,18 +187,18 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
               label="Enter your address"
               inputMode="text"
               placeholder="Address"
-              onChangeText={(text) => setAddress(text)}
+              onChangeText={(text) => handleChange('address', text)}
             />
             <InputText
               label="Enter your password"
               placeholder="Password"
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={(text) => handleChange('password', text)}
               secureTextEntry
             />
             <InputText
               label="Confirm your password"
               placeholder="Confirm Password"
-              onChangeText={(text) => setConfirmPassword(text)}
+              onChangeText={(text) => handleChange('confirmPassword', text)}
               secureTextEntry
             />
           </View>
