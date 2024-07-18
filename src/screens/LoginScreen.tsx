@@ -1,5 +1,5 @@
-import React from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { ButtonPrimary } from '../components/ButtonPrimary'
@@ -12,11 +12,28 @@ import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
 import { StackParamList } from '../navigators/StackNavigation'
+import { postLogin } from '../services/postLogin'
 
 type LoginScreenProps = NativeStackScreenProps<StackParamList, 'Login'>
 
 export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
   const { navigation } = props
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const handleSubmit = async () => {
+    if (!email) return setError('Solo para probar los errores del input Email')
+    if (!password) return setError('Solo para probar los errores del input Password')
+
+    const res = await postLogin(email, password)
+
+    if (res.status) {
+      navigation.navigate('Home')
+      setEmail('')
+      setPassword('')
+    }
+  }
 
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
@@ -40,8 +57,18 @@ export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
             <InputText
               label="Enter your username or email address"
               placeholder="Username or email address"
+              onChangeText={(text) => setEmail(text)}
+              keyboardType="email-address"
+              inputMode="email"
+              error={error}
             />
-            <InputText label="Enter your password" placeholder="Password" secureTextEntry />
+            <InputText
+              label="Enter your password"
+              placeholder="Password"
+              onChangeText={(text) => setPassword(text)}
+              error={error}
+              secureTextEntry
+            />
           </View>
 
           <View style={styles.optionsContainer}>
@@ -49,7 +76,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
             <Link sizeText={fontSize.caption1} value="Forgot Password" />
           </View>
 
-          <ButtonPrimary variant="primary" text="Sing in" onPress={() => Alert.alert('a')} />
+          <ButtonPrimary variant="primary" text="Sing in" onPress={handleSubmit} />
 
           <View style={styles.registerContainer}>
             <StyledText neutralBase center subtitle2>
