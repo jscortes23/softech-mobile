@@ -6,7 +6,20 @@ import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/nati
 import { CategoryCard } from '../components/CategoryCard'
 import { ContainerMain } from '../components/ContainerMain'
 import { StyledText } from '../components/StyledText'
-import { BellIcon, EyeIcon, TagIcon } from '../components/icons/Icons'
+import {
+  PhoneIcon,
+  TabletIcon,
+  PrintersIcon,
+  CamerasIcon,
+  SmarttvIcon,
+  HeadphonesIcon,
+  SmartwatchIcon,
+  KeyboardIcon,
+  ComputersIcon,
+  MiceIcon,
+  StorageIcon,
+  GamingIcon,
+} from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 import { StackParamList } from '../navigators/StackNavigation'
 
@@ -60,11 +73,31 @@ export const CategoriesScreen: React.FC<CategoriesScreenProps> = (props) => {
   const renderIcon = (iconName: string) => {
     switch (iconName) {
       case 'ios-phone-portrait':
-        return <BellIcon width={40} height={40} color="black" />
+        return <PhoneIcon width={40} height={40} color="black" />
+      case 'ios-tablet-portrait':
+        return <TabletIcon width={40} height={40} color="black" />
+      case 'ios-print':
+        return <PrintersIcon width={40} height={40} color="black" />
+      case 'ios-camera':
+        return <CamerasIcon width={40} height={40} color="black" />
       case 'ios-watch':
-        return <EyeIcon width={40} height={40} color="black" />
-      default:
-        return <TagIcon width={35} height={32} color="black" />
+        return <SmartwatchIcon width={40} height={40} color="black" />
+      case 'ios-tv':
+        return <SmarttvIcon width={40} height={40} color="black" />
+      case 'ios-laptop':
+        return <TabletIcon width={40} height={40} color="black" />
+      case 'ios-headset':
+        return <HeadphonesIcon width={40} height={40} color="black" />
+      case 'ios-keypad':
+        return <KeyboardIcon width={40} height={40} color="black" />
+      case 'ios-bluetooth':
+        return <MiceIcon width={40} height={40} color="black" />
+      case 'ios-cloud-circle':
+        return <StorageIcon width={40} height={40} color="black" />
+      case 'ios-desktop':
+        return <ComputersIcon width={40} height={40} color="black" />
+      case 'ios-game-controller':
+        return <GamingIcon width={40} height={40} color="black" />
     }
   }
 
