@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Image, StyleSheet, Pressable } from 'react-native'
 
 import { StyledText } from './StyledText'
@@ -6,24 +6,28 @@ import { MinusIcon, PlusIcon } from './icons/Icons'
 import { colors } from '../config/themes/appThemes'
 
 interface CardProductProps {
-  onChange?: (value: number) => void
   price: number
   imageUrl: string
   name: string
   onDelete?: () => void
+  onChange?: (newPrice: number) => void
 }
 
-export const CardProduct: React.FC<CardProductProps> = (props) => {
-  const { imageUrl, name, price, onChange, onDelete } = props
-  const [quantity, setQuantity] = useState<number>(0)
+export const CardProduct: React.FC<CardProductProps> = ({
+  price,
+  imageUrl,
+  name,
+  onDelete,
+  onChange,
+}) => {
+  const [quantity, setQuantity] = useState<number>(1)
 
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1)
-  }
+  const incrementQuantity = () => setQuantity(quantity + 1)
+  const decrementQuantity = () => setQuantity(quantity > 1 ? quantity - 1 : 1)
 
-  const decrementQuantity = () => {
-    setQuantity(quantity > 0 ? quantity - 1 : 0)
-  }
+  useEffect(() => {
+    onChange && onChange(quantity * price) // Solo afecta al precio total
+  }, [quantity])
 
   return (
     <View style={styles.container}>
@@ -45,7 +49,7 @@ export const CardProduct: React.FC<CardProductProps> = (props) => {
             </Pressable>
           </View>
           <StyledText subtitle1 bold>
-            ${price}
+            ${price} {}
           </StyledText>
         </View>
       </View>
@@ -70,10 +74,6 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flex: 3,
   },
-  priceText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   containerQuantity: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -94,5 +94,8 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     alignSelf: 'flex-start',
+  },
+  totalPrice: {
+    marginTop: 10,
   },
 })
