@@ -7,7 +7,7 @@ export const getProductsByCategory = async (id_categoria: number) => {
     const data = await res.json()
     return data
   } catch (error) {
-    console.error('Error fetching products by category:', error)
+    console.error('Error fetching products by category', error)
     throw error
   }
 }
