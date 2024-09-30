@@ -1,5 +1,5 @@
 export const postLogin = async (email: string, password: string) => {
-  const res = await fetch('http://192.168.0.120:8000/api/login', {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/login`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

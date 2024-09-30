@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
 // Screens
+import { CartScreen } from '../screens/CartScreen'
 import { CategoriesScreen } from '../screens/CategoriesScreen'
 import { FilteredCategoryScreen } from '../screens/FilteredCategoryScreen'
 import { FiltersScreen } from '../screens/FiltersScreen'
@@ -72,6 +73,14 @@ export const UserStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  )
+}
+
+export const CartStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

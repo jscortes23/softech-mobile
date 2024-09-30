@@ -4,11 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialComunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import { CategoriesStack, HomeStack, SearchStack, UserStack } from './StackNavigation'
+import { CartStack, CategoriesStack, HomeStack, SearchStack, UserStack } from './StackNavigation'
 import { colors } from '../config/themes/appThemes'
-// Screens
-import { CartScreen } from '../screens/CartScreen'
-import { LoginScreen } from '../screens/LoginScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -20,7 +17,7 @@ export const TabNavigation = () => {
         tabBarStyle: { backgroundColor: colors.white, height: 70 },
       }}>
       <Tab.Screen
-        name="Home"
+        name="HomeTab"
         component={HomeStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -29,7 +26,7 @@ export const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Category"
+        name="CategoryTab"
         component={CategoriesStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -38,7 +35,7 @@ export const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="SearchTab"
         component={SearchStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -47,8 +44,8 @@ export const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
-        component={CartScreen}
+        name="CartTab"
+        component={CartStack}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialComunity name="cart-outline" color={color} size={size} />
@@ -56,7 +53,7 @@ export const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="ProfileTab"
         component={UserStack}
         options={{
           tabBarIcon: ({ color, size }) => (

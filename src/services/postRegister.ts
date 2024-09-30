@@ -1,7 +1,7 @@
 import { ClientType } from '../models/Client'
 
 export const postRegister = async (client: ClientType) => {
-  const res = await fetch('http://192.168.0.120:8000/api/registro', {
+  const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/registro`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
