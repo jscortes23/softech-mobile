@@ -9,9 +9,9 @@ import { ResultProduct } from '../components/ResultProduct'
 import { StyledText } from '../components/StyledText'
 import { ChevronDownIcon, SettingsIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
-import { Product } from '../models/Product'
 import { StackParamList } from '../navigators/StackNavigation'
 import { getAllProducts } from '../services/getAllProducts'
+import { Product } from '../types/Product'
 
 type ProductsProps = NativeStackScreenProps<StackParamList, 'Products'>
 

@@ -1,3 +1,8 @@
+import { Brand } from './Brand'
+import { Category } from './Category'
+import { MeasuringUnit } from './MeasuringUnit'
+import { Packaging } from './packaging'
+
 export interface Product {
   id_producto: number
   descripcion_producto: string
@@ -17,4 +22,8 @@ export interface Product {
   estado: number
   created_at: string
   updated_at: any
+  categoria: Category
+  unidad_medida: MeasuringUnit
+  embalaje: Packaging
+  marca: Brand
 }

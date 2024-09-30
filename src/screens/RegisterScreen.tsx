@@ -13,11 +13,11 @@ import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 import { useRegisterForm } from '../hooks/useRegisterForm'
-import { ClientType } from '../models/Client'
 import { StackParamList } from '../navigators/StackNavigation'
 import { getCities } from '../services/cities'
 import { postRegister } from '../services/postRegister'
 import { getIdTypes } from '../services/typesId'
+import { ClientType } from '../types/Client'
 import { formatDate } from '../utils/formatDate'
 
 type RegisterScreenProps = NativeStackScreenProps<StackParamList, 'Register'>

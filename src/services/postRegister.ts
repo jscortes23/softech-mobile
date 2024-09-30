@@ -1,7 +1,7 @@
-import { ClientType } from '../models/Client'
-
+import { ClientType } from '../types/Client'
+// Darle tipo
 export const postRegister = async (client: ClientType) => {
-  const res = await fetch('http://192.168.0.120:8000/api/registro', {
+  const res = await fetch(`${process.env.API_URL}/api/registro`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
