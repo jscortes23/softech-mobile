@@ -9,19 +9,25 @@ import { ResultProduct } from '../components/ResultProduct'
 import { StyledText } from '../components/StyledText'
 import { ChevronDownIcon, SettingsIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
-import { Product } from '../models/Product'
+import { ProductType } from '../models/Product'
 import { StackParamList } from '../navigators/StackNavigation'
 import { getAllProducts } from '../services/getAllProducts'
+import { getProductsByCategory } from '../services/getProductsByCategory'
 
 type ProductsProps = NativeStackScreenProps<StackParamList, 'Products'>
 
 export const ProductsScreen: React.FC<ProductsProps> = (props) => {
-  const { navigation } = props
-  const [products, setProducts] = useState<Product[]>([])
+  const { navigation, route } = props
+  const [products, setProducts] = useState<ProductType[]>([])
+  const idCategory = route.params?.idCategory
 
   useEffect(() => {
-    getAllProducts().then((data) => setProducts(data))
-  }, [])
+    if (idCategory) {
+      getProductsByCategory(idCategory).then((data) => setProducts(data))
+    } else {
+      getAllProducts().then((data) => setProducts(data))
+    }
+  }, [idCategory])
 
   return (
     <ContainerMain backgroundColor={colors.white}>

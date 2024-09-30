@@ -1,42 +1,44 @@
 import { Ionicons } from '@expo/vector-icons'
-import React, { useRef, useState } from 'react'
+import Feather from '@expo/vector-icons/Feather'
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
+import Fontisto from '@expo/vector-icons/Fontisto'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { CategoryCard } from '../components/CategoryCard'
 import { ContainerMain } from '../components/ContainerMain'
 import { StyledText } from '../components/StyledText'
-import { BellIcon, EyeIcon, TagIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { CategoryType } from '../models/Category'
 import { StackParamList } from '../navigators/StackNavigation'
+import { getAllCategories } from '../services/getAllCategories'
 
-const data = [
-  { categoryName: 'Phones', iconName: 'ios-phone-portrait' },
-  { categoryName: 'Tablets', iconName: 'ios-tablet-portrait' },
-  { categoryName: 'Printers', iconName: 'ios-print' },
-  { categoryName: 'Cameras', iconName: 'ios-camera' },
-  { categoryName: 'Smartwatches', iconName: 'ios-watch' },
-  { categoryName: 'Printers', iconName: 'ios-print' },
-  { categoryName: 'Smart TVs', iconName: 'ios-tv' },
-  { categoryName: 'XXXXX', iconName: 'ios-laptop' },
-  { categoryName: 'Headphones', iconName: 'ios-headset' },
-  { categoryName: 'Keyboards', iconName: 'ios-keypad' },
-  { categoryName: 'Mice', iconName: 'ios-bluetooth' },
-  { categoryName: 'Storage', iconName: 'ios-cloud-circle' },
-  { categoryName: 'Computers', iconName: 'ios-desktop' },
-  { categoryName: 'Gaming', iconName: 'ios-game-controller' },
-  { categoryName: 'Headphones', iconName: 'ios-headset' },
-  { categoryName: 'Keyboards', iconName: 'ios-keypad' },
-  { categoryName: 'Mice', iconName: 'ios-bluetooth' },
-  { categoryName: 'Storage', iconName: 'ios-cloud-circle' },
-  { categoryName: 'Computers', iconName: 'ios-desktop' },
-  { categoryName: 'FFFFFF', iconName: 'ios-game-controller' },
-]
+const icons = {
+  0: <Feather name="cpu" size={24} color="black" />,
+  1: <Fontisto name="photograph" size={24} color="black" />,
+  2: <FontAwesome5 name="memory" size={24} color="black" />,
+  3: <Feather name="hard-drive" size={24} color="black" />,
+  4: <MaterialCommunityIcons name="harddisk" size={24} color="black" />,
+  5: <Fontisto name="flipboard" size={24} color="black" />,
+  6: <MaterialIcons name="screenshot-monitor" size={24} color="black" />,
+  7: <MaterialIcons name="power" size={24} color="black" />,
+  8: <FontAwesome5 name="mouse" size={24} color="black" />,
+  9: <MaterialCommunityIcons name="view-gallery-outline" size={24} color="black" />,
+}
 
 type CategoriesScreenProps = NativeStackScreenProps<StackParamList, 'Categories'>
 
 export const CategoriesScreen: React.FC<CategoriesScreenProps> = (props) => {
   const { navigation } = props
+  const [category, setCategories] = useState<CategoryType[]>([])
+
+  useEffect(() => {
+    getAllCategories().then((data) => setCategories(data))
+  }, [])
+
   const scrollViewRef = useRef<ScrollView>(null)
   const [scrollX, setScrollX] = useState(0)
   const COLUMN_WIDTH = 100
@@ -57,17 +59,6 @@ export const CategoriesScreen: React.FC<CategoriesScreenProps> = (props) => {
     }
   }
 
-  const renderIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'ios-phone-portrait':
-        return <BellIcon width={40} height={40} color="black" />
-      case 'ios-watch':
-        return <EyeIcon width={40} height={40} color="black" />
-      default:
-        return <TagIcon width={35} height={32} color="black" />
-    }
-  }
-
   return (
     <ContainerMain flex={1} backgroundColor={colors.white}>
       <View style={styles.header}>
@@ -85,8 +76,13 @@ export const CategoriesScreen: React.FC<CategoriesScreenProps> = (props) => {
       </View>
       <ScrollView horizontal ref={scrollViewRef}>
         <View style={styles.gridContainer}>
-          {data.map((item, index) => (
-            <CategoryCard key={index} icon={renderIcon(item.iconName)} name={item.categoryName} />
+          {category.map((item, index) => (
+            <CategoryCard
+              key={index}
+              icon={(icons as any)[index]}
+              name={item.nombre_categoria}
+              onPress={() => navigation.navigate('Products', { idCategory: item.id_categoria })}
+            />
           ))}
         </View>
       </ScrollView>

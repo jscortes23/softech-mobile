@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductType {
   id_producto: number
   descripcion_producto: string
   descripcion_larga_producto: string
