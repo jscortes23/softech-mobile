@@ -593,3 +593,17 @@ export const GamingIcon: React.FC<iconsProps> = (props) => {
     />
   )
 }
+
+export const DeleteIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+  return (
+    <Image
+      source={require('../../../assets/icons/DeleteIcon.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
