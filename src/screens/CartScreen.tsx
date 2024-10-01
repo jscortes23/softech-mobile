@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   separator: {
-    height: 1,
-    backgroundColor: colors.neutral40,
+    height: 15,
+    backgroundColor: 'transparent',
   },
 })
