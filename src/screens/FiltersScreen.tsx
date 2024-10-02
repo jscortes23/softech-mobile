@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
@@ -8,12 +9,19 @@ import { Dropdown } from '../components/Dropdown'
 import { RangeSlider } from '../components/RangeSlider'
 import { Search } from '../components/Search'
 import { colors } from '../config/themes/appThemes'
+import { BrandType } from '../models/Brand'
 import { StackParamList } from '../navigators/StackNavigation'
+import { getAllBrands } from '../services/getAllBrands'
 
 type FiltersProps = NativeStackScreenProps<StackParamList, 'Filters'>
 
 export const FiltersScreen: React.FC<FiltersProps> = (props) => {
   const { navigation } = props
+  const [brands, setBrands] = useState<BrandType[]>([])
+
+  useEffect(() => {
+    getAllBrands().then((data) => setBrands(data))
+  }, [])
 
   return (
     <ContainerMain flex={1} backgroundColor={colors.white}>
@@ -29,24 +37,9 @@ export const FiltersScreen: React.FC<FiltersProps> = (props) => {
             style={styles.containerOptions}
             contentContainerStyle={{ rowGap: 8 }}
             persistentScrollbar={true}>
-            <Checkbox value="Apple" />
-            <Checkbox value="Samsung" />
-            <Checkbox value="Xiaomi" />
-            <Checkbox value="Poco" />
-            <Checkbox value="OPPO" />
-            <Checkbox value="Honor" />
-            <Checkbox value="Motorola" />
-            <Checkbox value="Nokia" />
-            <Checkbox value="Realme" />
-            <Checkbox value="Apple" />
-            <Checkbox value="Samsung" />
-            <Checkbox value="Xiaomi" />
-            <Checkbox value="Poco" />
-            <Checkbox value="OPPO" />
-            <Checkbox value="Honor" />
-            <Checkbox value="Motorola" />
-            <Checkbox value="Nokia" />
-            <Checkbox value="Realme" />
+            {brands.map((brand) => (
+              <Checkbox key={brand.id_marca} value={brand.nombre_marca} />
+            ))}
           </ScrollView>
         </Dropdown>
       </View>
