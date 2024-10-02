@@ -11,12 +11,12 @@ import { BellIcon } from '../components/icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
 import { StackParamList } from '../navigators/StackNavigation'
 
-type ForgotProps = NativeStackScreenProps<StackParamList, 'Login'>
+type ForgotProps = NativeStackScreenProps<StackParamList, 'ForgotPassword'>
 
 export const ForgotPasswordScreen: React.FC<ForgotProps> = (props) => {
   const { navigation } = props
 
-  const handleSubmit = async () => {}
+  const handleSubmit = async () => { }
 
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>

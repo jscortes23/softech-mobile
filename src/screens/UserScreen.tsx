@@ -1,4 +1,6 @@
+import { useContext, useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
 import { ButtonPrimary } from '../components/ButtonPrimary'
 import { ContainerMain } from '../components/ContainerMain'
@@ -6,10 +8,23 @@ import { StyledText } from '../components/StyledText'
 import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { AuthContext } from '../context/useAuth'
+import { ClientType } from '../models/Client'
+import { StackParamList } from '../navigators/StackNavigation'
+import { getUserData } from '../services/getUserData'
 
-interface UserScreenProps {}
+type UserScreenProps = NativeStackScreenProps<StackParamList, 'UserData'>
 
 export const UserScreen: React.FC<UserScreenProps> = (props) => {
+  const [userData, setUserData] = useState<ClientType>()
+  const { token } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (token) {
+      getUserData(token).then((data) => setUserData(data))
+    }
+  }, [])
+
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
       <ContainerMain>
@@ -22,19 +37,22 @@ export const UserScreen: React.FC<UserScreenProps> = (props) => {
 
         <View style={[styles.userInfoContainer, styles.shadowProp]}>
           <StyledText title1 center>
-            User
+            Mi perfil
           </StyledText>
           <StyledText body1 black>
-            Email: xxx@xxx.xx
+            Nombre: {`${userData?.nombre_cliente} ${userData?.apellido_cliente}`}
           </StyledText>
           <StyledText body1 black>
-            Ciudad: Cali
+            Email: {`${userData?.email}`}
           </StyledText>
           <StyledText body1 black>
-            Teléfono: 323 23565
+            Ciudad: Bogotá
           </StyledText>
           <StyledText body1 black>
-            Dirección: 323 23565
+            Teléfono: {`${userData?.telefono_cliente}`}
+          </StyledText>
+          <StyledText body1 black>
+            Dirección: {`${userData?.direccion_entrega_cliente}`}
           </StyledText>
 
           <View style={styles.buttonContainer}>
