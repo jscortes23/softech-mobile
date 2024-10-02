@@ -9,21 +9,50 @@ import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors } from '../config/themes/appThemes'
 import { AuthContext } from '../context/useAuth'
-import { ClientType } from '../models/Client'
 import { StackParamList } from '../navigators/StackNavigation'
+import { getLogout } from '../services/getLogout'
 import { getUserData } from '../services/getUserData'
 
 type UserScreenProps = NativeStackScreenProps<StackParamList, 'UserData'>
 
+interface Client {
+  data: {
+    email: string
+    tipo_identificacion_id: number
+    numero_identificacion_cliente: string
+    nombre_cliente: string
+    apellido_cliente: string
+    password: string
+    telefono_cliente: string
+    direccion_entrega_cliente: string
+    fecha_nacimiento_cliente: string
+    ciudad_id: number
+  }
+}
+
 export const UserScreen: React.FC<UserScreenProps> = (props) => {
-  const [userData, setUserData] = useState<ClientType>()
-  const { token } = useContext(AuthContext)
+  const [userData, setUserData] = useState<Client>()
+  const { token, setToken } = useContext(AuthContext)
+  const [isLogout, setIsLogout] = useState(false)
+  const { navigation } = props
 
   useEffect(() => {
     if (token) {
       getUserData(token).then((data) => setUserData(data))
     }
   }, [])
+
+  const handleLogout = async () => {
+    if (token) {
+      const res = await getLogout(token)
+
+      setIsLogout(true)
+
+      setToken && setToken('')
+
+      navigation.navigate('Home')
+    }
+  }
 
   return (
     <BgTwoColor colors={[colors.blueBase, colors.blue10]}>
@@ -40,26 +69,28 @@ export const UserScreen: React.FC<UserScreenProps> = (props) => {
             Mi perfil
           </StyledText>
           <StyledText body1 black>
-            Nombre: {`${userData?.nombre_cliente} ${userData?.apellido_cliente}`}
+            Nombre: {`${userData?.data.nombre_cliente} ${userData?.data.apellido_cliente}`}
           </StyledText>
           <StyledText body1 black>
-            Email: {`${userData?.email}`}
+            Email: {`${userData?.data.email}`}
           </StyledText>
           <StyledText body1 black>
-            Ciudad: Bogotá
+            Ciudad: Cali
           </StyledText>
           <StyledText body1 black>
-            Teléfono: {`${userData?.telefono_cliente}`}
+            Teléfono: {`${userData?.data.telefono_cliente}`}
           </StyledText>
           <StyledText body1 black>
-            Dirección: {`${userData?.direccion_entrega_cliente}`}
+            Dirección: {`${userData?.data.direccion_entrega_cliente}`}
           </StyledText>
 
           <View style={styles.buttonContainer}>
             <ButtonPrimary
               text="Logout"
               variant="primary"
-              onPress={() => console.log('Logout pressed')}
+              onPress={() => {
+                handleLogout()
+              }}
             />
           </View>
         </View>

@@ -49,7 +49,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
         </View>
         <View style={[styles.formContainer, styles.shadowProp]}>
           <StyledText title2 center>
-            Welcome to <StyledText blueBase>X Firm</StyledText>
+            Welcome to <StyledText blueBase>Softech</StyledText>
           </StyledText>
 
           <StyledText title1 neutralBase center>
