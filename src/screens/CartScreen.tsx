@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { FlatList, StyleSheet, ScrollView, View } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
@@ -8,7 +9,7 @@ import { StyledText } from '../components/StyledText'
 import { colors } from '../config/themes/appThemes'
 import { StackParamList } from '../navigators/StackNavigation'
 
-const products = [
+const initialProducts = [
   {
     id: '1',
     name: 'Apple iPhone 14 Pro Max 128Gb Deep Purple',
@@ -32,10 +33,31 @@ const products = [
 type CartScreenProps = NativeStackScreenProps<StackParamList, 'Cart'>
 
 export const CartScreen: React.FC<CartScreenProps> = (props) => {
-  const prices = products.map((product) => product.price)
+  const [products, setProducts] = useState(initialProducts)
+  const [prices, setPrices] = useState<number[]>(products.map((product) => product.price))
 
-  const renderProduct = (item: { id: any; name: any; price: any; src: any }) => (
-    <CardProduct key={item.id} imageUrl={item.src} name={item.name} price={item.price} />
+  const handleRemoveItem = (itemId: string) => {
+    setProducts((prevProducts) => prevProducts.filter((item) => item.id !== itemId))
+    setPrices((prevPrices) => prevPrices.filter((_, index) => products[index].id !== itemId))
+  }
+
+  const handlePriceChange = (index: number, newPrice: number) => {
+    setPrices((prevPrices) => {
+      const updatedPrices = [...prevPrices]
+      updatedPrices[index] = newPrice
+      return updatedPrices
+    })
+  }
+
+  const renderProduct = (item: { id: any; name: any; price: any; src: any }, index: number) => (
+    <CardProduct
+      key={item.id}
+      imageUrl={item.src}
+      name={item.name}
+      price={item.price}
+      onDelete={() => handleRemoveItem(item.id)}
+      onChange={(newPrice) => handlePriceChange(index, newPrice)}
+    />
   )
 
   const renderSeparator = () => <View style={styles.separator} />
@@ -49,7 +71,7 @@ export const CartScreen: React.FC<CartScreenProps> = (props) => {
         <FlatList
           scrollEnabled={false}
           data={products}
-          renderItem={({ item }) => renderProduct(item)}
+          renderItem={({ item, index }) => renderProduct(item, index)}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={renderSeparator}
         />
@@ -72,7 +94,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   separator: {
-    height: 1,
-    backgroundColor: colors.neutral40,
+    height: 15,
+    backgroundColor: 'transparent',
   },
 })

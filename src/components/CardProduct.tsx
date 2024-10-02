@@ -1,29 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Image, StyleSheet, Pressable } from 'react-native'
 
 import { StyledText } from './StyledText'
-import { MinusIcon, PlusIcon } from './icons/Icons'
+import { MinusIcon, PlusIcon, DeleteIcon } from './icons/Icons'
 import { colors } from '../config/themes/appThemes'
 
 interface CardProductProps {
-  onChange?: (value: number) => void
   price: number
   imageUrl: string
   name: string
   onDelete?: () => void
+  onChange?: (newPrice: number) => void
 }
 
-export const CardProduct: React.FC<CardProductProps> = (props) => {
-  const { imageUrl, name, price, onChange, onDelete } = props
-  const [quantity, setQuantity] = useState<number>(0)
+export const CardProduct: React.FC<CardProductProps> = ({
+  price,
+  imageUrl,
+  name,
+  onDelete,
+  onChange,
+}) => {
+  const [quantity, setQuantity] = useState<number>(1)
 
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1)
-  }
+  const incrementQuantity = () => setQuantity(quantity + 1)
+  const decrementQuantity = () => setQuantity(quantity > 1 ? quantity - 1 : 1)
 
-  const decrementQuantity = () => {
-    setQuantity(quantity > 0 ? quantity - 1 : 0)
-  }
+  useEffect(() => {
+    onChange && onChange(quantity * price) // Solo afecta al precio total
+  }, [quantity])
 
   return (
     <View style={styles.container}>
@@ -35,22 +39,22 @@ export const CardProduct: React.FC<CardProductProps> = (props) => {
         <View style={styles.quantitySelector}>
           <View style={styles.containerQuantity}>
             <Pressable onPress={decrementQuantity}>
-              <MinusIcon width={24} height={24} color={colors.black} />
+              <MinusIcon width={18} height={18} color={colors.black} />
             </Pressable>
             <StyledText body1 bold style={styles.quantityText}>
               {quantity}
             </StyledText>
             <Pressable onPress={incrementQuantity}>
-              <PlusIcon width={24} height={24} color={colors.black} />
+              <PlusIcon width={18} height={18} color={colors.black} />
             </Pressable>
           </View>
           <StyledText subtitle1 bold>
-            ${price}
+            ${price} {}
           </StyledText>
         </View>
       </View>
       <Pressable onPress={onDelete} style={styles.closeIcon}>
-        <StyledText title2>X</StyledText>
+        <DeleteIcon width={22} height={22} />
       </Pressable>
     </View>
   )
@@ -70,10 +74,6 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flex: 3,
   },
-  priceText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   containerQuantity: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -86,13 +86,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   quantityText: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 12, // Reduce el espacio horizontal
+    paddingVertical: 6, // Reduce el espacio vertical
     borderColor: colors.neutral40,
     borderWidth: 1,
     borderRadius: 4,
+    fontSize: 14, // Ajusta el tamaño del texto para que se vea más pequeño y proporcionado
   },
   closeIcon: {
     alignSelf: 'flex-start',
+    marginLeft: 10, // Ajuste de margen para mejor alineación
+  },
+  totalPrice: {
+    marginTop: 10,
   },
 })

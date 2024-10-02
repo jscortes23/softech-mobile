@@ -413,3 +413,197 @@ export const CartIcon: React.FC<iconsProps> = (props) => {
     />
   )
 }
+
+export const PhoneIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Phone.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const TabletIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Tablet.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const SmartwatchIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Smartwatch.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const PrintersIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Printers.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const SmarttvIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Smarttv.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const CamerasIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Cameras.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const HeadphonesIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Headphones.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const KeyboardIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Keyboard.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const MiceIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Mice.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const StorageIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Storage.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const ComputersIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Computers.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const GamingIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+
+  return (
+    <Image
+      source={require('../../../assets/icons/Gaming.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
+
+export const DeleteIcon: React.FC<iconsProps> = (props) => {
+  const { width, height, color } = props
+  return (
+    <Image
+      source={require('../../../assets/icons/DeleteIcon.png')}
+      style={{
+        width,
+        height,
+        tintColor: color,
+      }}
+    />
+  )
+}
