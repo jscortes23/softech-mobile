@@ -1,6 +1,6 @@
-export const getUserData = async (userToken?: string) => {
+export const getLogout = async (userToken?: string) => {
   try {
-    const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/perfil`, {
+    const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/logout`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
