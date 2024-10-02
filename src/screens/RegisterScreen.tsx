@@ -71,7 +71,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
 
     // Validar si se creo correctamente y redirigir
     if (res.status) {
-      navigation.navigate('Home')
+      navigation.navigate('Login')
     }
   }
 
@@ -203,7 +203,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = (props) => {
             />
           </View>
           <View style={styles.optionsContainer}>
-            <Checkbox value="Terms?" />
+            <Checkbox value="Al registrarse acepta nuestros términos y condiciones." />
           </View>
           <ButtonPrimary variant="primary" text="Sign up" onPress={() => handleSubmit()} />
         </View>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
@@ -11,12 +11,14 @@ import { StyledText } from '../components/StyledText'
 import { BgTwoColor } from '../components/backgrounds/BgTwoColor'
 import { BellIcon } from '../components/icons/Icons'
 import { colors, fontSize } from '../config/themes/appThemes'
+import { AuthContext } from '../context/useAuth'
 import { StackParamList } from '../navigators/StackNavigation'
 import { postLogin } from '../services/postLogin'
 
 type LoginScreenProps = NativeStackScreenProps<StackParamList, 'Login'>
 
 export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
+  const { token, setToken } = useContext(AuthContext)
   const { navigation } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,6 +34,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
       navigation.navigate('Home')
       setEmail('')
       setPassword('')
+      setToken && setToken(res.token)
     }
   }
 
@@ -73,7 +76,11 @@ export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
 
           <View style={styles.optionsContainer}>
             <Checkbox value="Remember Me" />
-            <Link sizeText={fontSize.caption1} value="Forgot Password" />
+            <Link
+              sizeText={fontSize.caption1}
+              value="Forgot Password"
+              onPress={() => navigation.navigate('ForgotPassword')}
+            />
           </View>
 
           <ButtonPrimary variant="primary" text="Sing in" onPress={handleSubmit} />

@@ -1,16 +1,19 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
+import React, { useContext } from 'react'
 
 // Screens
+import { AuthContext } from '../context/useAuth'
 import { CartScreen } from '../screens/CartScreen'
 import { CategoriesScreen } from '../screens/CategoriesScreen'
 import { FilteredCategoryScreen } from '../screens/FilteredCategoryScreen'
 import { FiltersScreen } from '../screens/FiltersScreen'
+import { ForgotPasswordScreen } from '../screens/ForgotPasswordScreen'
 import { HomeScreen } from '../screens/HomeScreen'
 import { LoginScreen } from '../screens/LoginScreen'
 import { ProductDetailsScreen } from '../screens/ProductDetailsScreen'
 import { ProductsScreen } from '../screens/ProductsScreen'
 import { RegisterScreen } from '../screens/RegisterScreen'
+import { UserScreen } from '../screens/UserScreen'
 
 export type StackParamList = {
   Home: undefined
@@ -23,6 +26,8 @@ export type StackParamList = {
   Cart: undefined
   Login: undefined
   Register: undefined
+  ForgotPassword: undefined
+  UserData: undefined
 }
 
 const Stack = createStackNavigator<StackParamList>()
@@ -69,10 +74,18 @@ export const SearchStack = () => {
 }
 
 export const UserStack = () => {
+  const { token } = useContext(AuthContext)
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
+      {token ? (
+        <Stack.Screen name="UserData" component={UserScreen} />
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        </>
+      )}
     </Stack.Navigator>
   )
 }
