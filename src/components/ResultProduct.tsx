@@ -4,22 +4,33 @@ import { ButtonPrimary } from './ButtonPrimary'
 import { StyledText } from './StyledText'
 import { CartIcon } from './icons/Icons'
 import { colors } from '../config/themes/appThemes'
+import { useCart } from '../context/cartContext'
 
 interface ResultProductProps {
+  productId: number
   productName: string
   productImage: string
   productPrice: number
-  onAddToCart?: () => void
   onBuyNow?: () => void
 }
 
 export const ResultProduct: React.FC<ResultProductProps> = (props) => {
-  const { productName, productImage, productPrice, onAddToCart, onBuyNow } = props
+  const { productId, productName, productImage, productPrice, onBuyNow } = props
+  const { addToCart } = useCart()
+
+  const handleAddToCart = () => {
+    addToCart({
+      id_producto: productId,
+      descripcion_producto: productName,
+      valor_unitario: productPrice,
+      imagen_miniatura_producto: productImage,
+    })
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Pressable onPress={onAddToCart} style={styles.icon}>
+        <Pressable onPress={handleAddToCart} style={styles.icon}>
           <CartIcon height={32} width={32} />
         </Pressable>
         <Image source={{ uri: productImage }} style={styles.image} />
@@ -32,7 +43,7 @@ export const ResultProduct: React.FC<ResultProductProps> = (props) => {
           </StyledText>
         </View>
       </View>
-      <ButtonPrimary onPress={onBuyNow} text="Buy Now" variant="primary" />
+      <ButtonPrimary onPress={onBuyNow} text="Comprar Ahora" variant="primary" />
     </View>
   )
 }
