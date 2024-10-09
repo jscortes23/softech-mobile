@@ -54,7 +54,9 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
           RenderItem={(item) => (
             <ResultProduct
               productName={item.descripcion_producto}
-              productImage={item.imagen_miniatura_producto}
+              productImage={
+                'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png'
+              }
               productPrice={Number(item.valor_unitario)}
               onBuyNow={() => navigation.navigate('ProductDetails')}
             />
