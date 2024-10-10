@@ -14,6 +14,7 @@ import { ProductDetailsScreen } from '../screens/ProductDetailsScreen'
 import { ProductsScreen } from '../screens/ProductsScreen'
 import { RegisterScreen } from '../screens/RegisterScreen'
 import { UserScreen } from '../screens/UserScreen'
+import { PaymentScreen } from '../screens/PaymentScreen'
 
 export type StackParamList = {
   Home: undefined
@@ -28,6 +29,7 @@ export type StackParamList = {
   Register: undefined
   ForgotPassword: undefined
   UserData: undefined
+  Payment: { totalUSD?: number }
 }
 
 const Stack = createStackNavigator<StackParamList>()
@@ -94,6 +96,7 @@ export const CartStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
+      <Stack.Screen name='Payment' component={PaymentScreen} />
     </Stack.Navigator>
   )
 }
