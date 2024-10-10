@@ -18,6 +18,7 @@ type FiltersProps = NativeStackScreenProps<StackParamList, 'Filters'>
 export const FiltersScreen: React.FC<FiltersProps> = (props) => {
   const { navigation } = props
   const [brands, setBrands] = useState<BrandType[]>([])
+  const [selectedBrand, setSelectedBrand] = useState<number | null>(null) // Añadimos el estado para la marca seleccionada
 
   useEffect(() => {
     getAllBrands().then((data) => setBrands(data))
@@ -38,7 +39,11 @@ export const FiltersScreen: React.FC<FiltersProps> = (props) => {
             contentContainerStyle={{ rowGap: 8 }}
             persistentScrollbar={true}>
             {brands.map((brand) => (
-              <Checkbox key={brand.id_marca} value={brand.nombre_marca} />
+              <Checkbox
+                key={brand.id_marca}
+                value={brand.nombre_marca}
+                onChange={() => setSelectedBrand(brand.id_marca)} // Guardamos la id de la marca seleccionada
+              />
             ))}
           </ScrollView>
         </Dropdown>
@@ -47,7 +52,7 @@ export const FiltersScreen: React.FC<FiltersProps> = (props) => {
         <ButtonPrimary
           text="Apply"
           variant="primary"
-          onPress={() => navigation.navigate('Products')}
+          onPress={() => navigation.navigate('Products', { idBrand: selectedBrand })} // Esto ahora debería funcionar sin errores
         />
       </View>
     </ContainerMain>

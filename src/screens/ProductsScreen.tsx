@@ -12,6 +12,7 @@ import { colors } from '../config/themes/appThemes'
 import { ProductType } from '../models/Product'
 import { StackParamList } from '../navigators/StackNavigation'
 import { getAllProducts } from '../services/getAllProducts'
+import { getProductsByBrands } from '../services/getProductsByBrand'
 import { getProductsByCategory } from '../services/getProductsByCategory'
 
 type ProductsProps = NativeStackScreenProps<StackParamList, 'Products'>
@@ -20,14 +21,22 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
   const { navigation, route } = props
   const [products, setProducts] = useState<ProductType[]>([])
   const idCategory = route.params?.idCategory
+  const idBrand = route.params?.idBrand // Recibimos el id de la marca
 
   useEffect(() => {
-    if (idCategory) {
+    if (idBrand) {
+      getProductsByBrands(idBrand)
+        .then((data) => setProducts(data))
+        .catch((error) => {
+          // Aquí podemos manejar el error y mostrarlo en la interfaz de usuario si es necesario
+          console.error('Error fetching products by brand:', error)
+        })
+    } else if (idCategory) {
       getProductsByCategory(idCategory).then((data) => setProducts(data))
     } else {
       getAllProducts().then((data) => setProducts(data))
     }
-  }, [idCategory])
+  }, [idBrand, idCategory])
 
   return (
     <ContainerMain backgroundColor={colors.white}>
@@ -47,7 +56,7 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
           {products.length}
         </StyledText>
       </View>
-      {/* Solucion temporal al renderizado de la ultima fila del componente */}
+      {/* Solución temporal al renderizado de la última fila del componente */}
       <ScrollView contentContainerStyle={{ paddingBottom: 180 }}>
         <GridView
           data={products}
