@@ -83,6 +83,7 @@ export const CategoriesScreen: React.FC<CategoriesScreenProps> = (props) => {
               name={item.nombre_categoria}
               onPress={() => navigation.navigate('Products', { idCategory: item.id_categoria })}
             />
+            
           ))}
         </View>
       </ScrollView>

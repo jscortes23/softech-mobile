@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FlatList, StyleSheet, ScrollView, View } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
@@ -8,55 +8,28 @@ import { OrderSummary } from '../components/OrderSummary'
 import { StyledText } from '../components/StyledText'
 import { colors } from '../config/themes/appThemes'
 import { StackParamList } from '../navigators/StackNavigation'
-
-const initialProducts = [
-  {
-    id: '1',
-    name: 'Apple iPhone 14 Pro Max 128Gb Deep Purple',
-    price: 1399,
-    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
-  },
-  {
-    id: '2',
-    name: 'Apple iPhone 14 Pro Max 128Gb Deep Purple',
-    price: 1399,
-    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
-  },
-  {
-    id: '3',
-    name: 'Apple iPhone 14 Pro Max 128Gb Deep Purple',
-    price: 1399,
-    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
-  },
-]
+import { CartItem, useCart } from '../context/cartContext'
 
 type CartScreenProps = NativeStackScreenProps<StackParamList, 'Cart'>
 
-export const CartScreen: React.FC<CartScreenProps> = (props) => {
-  const [products, setProducts] = useState(initialProducts)
-  const [prices, setPrices] = useState<number[]>(products.map((product) => product.price))
+export const CartScreen: React.FC<CartScreenProps> = () => {
+  const { items, removeFromCart, updateQuantity, getTotalPrice } = useCart()
 
-  const handleRemoveItem = (itemId: string) => {
-    setProducts((prevProducts) => prevProducts.filter((item) => item.id !== itemId))
-    setPrices((prevPrices) => prevPrices.filter((_, index) => products[index].id !== itemId))
+  const handleRemoveItem = (itemId: number) => {
+    removeFromCart(itemId)
   }
 
-  const handlePriceChange = (index: number, newPrice: number) => {
-    setPrices((prevPrices) => {
-      const updatedPrices = [...prevPrices]
-      updatedPrices[index] = newPrice
-      return updatedPrices
-    })
+  const handleQuantityChange = (itemId: number, newQuantity: number) => {
+    updateQuantity(itemId, newQuantity)
   }
 
-  const renderProduct = (item: { id: any; name: any; price: any; src: any }, index: number) => (
+  const renderProduct = (item: CartItem) => (
     <CardProduct
-      key={item.id}
-      imageUrl={item.src}
-      name={item.name}
-      price={item.price}
-      onDelete={() => handleRemoveItem(item.id)}
-      onChange={(newPrice) => handlePriceChange(index, newPrice)}
+      key={item.id_producto}
+      imageUrl={item.imagen_miniatura_producto}
+      name={item.descripcion_producto}
+      price={Number(item.valor_unitario)}
+      onDelete={() => handleRemoveItem(item.id_producto)}
     />
   )
 
@@ -70,12 +43,15 @@ export const CartScreen: React.FC<CartScreenProps> = (props) => {
         </StyledText>
         <FlatList
           scrollEnabled={false}
-          data={products}
-          renderItem={({ item, index }) => renderProduct(item, index)}
-          keyExtractor={(item) => item.id}
+          data={items}
+          renderItem={({ item }) => renderProduct(item)}
+          keyExtractor={(item) => item.id_producto.toString()}
           ItemSeparatorComponent={renderSeparator}
         />
-        <OrderSummary iva={21} discountPercentage={10} prices={prices} />
+        <OrderSummary
+          iva={21}
+          totalPrice={getTotalPrice()}
+        />
       </ContainerMain>
     </ScrollView>
   )

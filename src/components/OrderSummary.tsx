@@ -8,19 +8,17 @@ import { formatPrice } from '../utils/formatPrice'
 interface OrderSummaryProps {
   iva: number
   discountPercentage?: number
-  prices: number[]
+  totalPrice: number
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
-  const { iva, discountPercentage = 0, prices } = props
+  const { iva, discountPercentage = 0, totalPrice } = props
 
-  const subtotal = prices.reduce((a, b) => a + b, 0)
+  const discount = (totalPrice * discountPercentage) / 100
 
-  const discount = (subtotal * discountPercentage) / 100
+  const ivaCalculated = (totalPrice - discount) * (iva / 100)
 
-  const ivaCalculated = (subtotal - discount) * (iva / 100)
-
-  const total = subtotal - discount + ivaCalculated
+  const finalTotal = totalPrice - discount + ivaCalculated
 
   return (
     <View style={styles.container}>
@@ -57,7 +55,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
             Subtotal
           </StyledText>
           <StyledText body1 bold>
-            {formatPrice(subtotal)}
+            {formatPrice(totalPrice)}
           </StyledText>
         </View>
         <View style={styles.row}>
@@ -65,7 +63,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
             Total
           </StyledText>
           <StyledText body1 bold>
-            {formatPrice(total)}
+            {formatPrice(finalTotal)}
           </StyledText>
         </View>
       </View>

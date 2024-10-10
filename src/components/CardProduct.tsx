@@ -37,19 +37,8 @@ export const CardProduct: React.FC<CardProductProps> = ({
           {name}
         </StyledText>
         <View style={styles.quantitySelector}>
-          <View style={styles.containerQuantity}>
-            <Pressable onPress={decrementQuantity}>
-              <MinusIcon width={18} height={18} color={colors.black} />
-            </Pressable>
-            <StyledText body1 bold style={styles.quantityText}>
-              {quantity}
-            </StyledText>
-            <Pressable onPress={incrementQuantity}>
-              <PlusIcon width={18} height={18} color={colors.black} />
-            </Pressable>
-          </View>
           <StyledText subtitle1 bold>
-            ${price} {}
+            ${price} { }
           </StyledText>
         </View>
       </View>

@@ -53,6 +53,7 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
           data={products}
           RenderItem={(item) => (
             <ResultProduct
+              productId={item.id_producto}
               productName={item.descripcion_producto}
               productImage={
                 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png'
