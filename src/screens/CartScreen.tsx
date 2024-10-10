@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FlatList, StyleSheet, ScrollView, View } from 'react-native'
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types'
 
@@ -9,11 +9,13 @@ import { StyledText } from '../components/StyledText'
 import { colors } from '../config/themes/appThemes'
 import { StackParamList } from '../navigators/StackNavigation'
 import { CartItem, useCart } from '../context/cartContext'
+import { postCOPtoUSD } from '../services/postCOPtoUSD'
 
 type CartScreenProps = NativeStackScreenProps<StackParamList, 'Cart'>
 
 export const CartScreen: React.FC<CartScreenProps> = () => {
   const { items, removeFromCart, updateQuantity, getTotalPrice } = useCart()
+  const [totalUSD, setTotalUSD] = useState()
 
   const handleRemoveItem = (itemId: number) => {
     removeFromCart(itemId)
@@ -21,6 +23,12 @@ export const CartScreen: React.FC<CartScreenProps> = () => {
 
   const handleQuantityChange = (itemId: number, newQuantity: number) => {
     updateQuantity(itemId, newQuantity)
+  }
+
+  const handleCheckout = async () => {
+    const res = await postCOPtoUSD(getTotalPrice())
+    setTotalUSD && setTotalUSD(res.total_usd)
+    console.warn(totalUSD)
   }
 
   const renderProduct = (item: CartItem) => (
@@ -51,6 +59,7 @@ export const CartScreen: React.FC<CartScreenProps> = () => {
         <OrderSummary
           iva={21}
           totalPrice={getTotalPrice()}
+          onPress={handleCheckout}
         />
       </ContainerMain>
     </ScrollView>

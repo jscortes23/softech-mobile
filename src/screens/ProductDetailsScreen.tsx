@@ -38,7 +38,7 @@ export const ProductDetailsScreen: React.FC<ProductDetailsProps> = (props) => {
 
   const handleAddToCart = () => {
     addToCart({
-      id_producto: product?.id_producto,
+      id_producto: product ? product.id_producto : 1,
       descripcion_producto: product?.descripcion_producto,
       valor_unitario: Number(product?.valor_unitario),
       imagen_miniatura_producto: mainImage.src,
