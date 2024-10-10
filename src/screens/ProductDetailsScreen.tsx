@@ -9,19 +9,19 @@ import { StyledText } from '../components/StyledText'
 const imagenes = [
   {
     id: 1,
-    src: 'https://www.shutterstock.com/image-vector/3d-high-quality-vector-mobile-600nw-2121419597.jpg',
+    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
   },
   {
     id: 2,
-    src: 'https://motorolaus.vtexassets.com/arquivos/ids/162813/thinkphone-pdp-ecom-render-5-carbon-black-qq6n0fna.png?v=638084623680430000?w=1080&q=75',
+    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
   },
   {
     id: 3,
-    src: 'https://i5.walmartimages.com/seo/AT-T-XGODY-Cheap-Android-Phones-Unlocked-Cell-Phones-4000mAh-6-3-T-mobile-Unlocked-Phones_b5bc8f0c-bdf5-43b8-b507-8b5353a20d51.ab73e73c3f986aef10112ac0c1a95e3c.png?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
   },
   {
     id: 4,
-    src: 'https://www.khoslaonline.com/wp-content/uploads/2023/06/ONE-PLUS-NORD-CE-2-LITE-5G-BLUE-TIDE-6GB128GB-300x300.png',
+    src: 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png',
   },
 ]
 
