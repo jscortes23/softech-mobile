@@ -12,6 +12,7 @@ export interface ProductType {
   peso_producto: string
   imagen_miniatura_producto: string
   galeria_imagenes_producto: string
+  images?: { id: number; src: string }[]
   descuento_producto: string
   marca_id: number
   estado: number
