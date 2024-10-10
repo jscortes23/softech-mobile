@@ -19,7 +19,7 @@ export type StackParamList = {
   Home: undefined
   Categories: undefined
   Search: undefined
-  Products: { idCategory: number } | undefined
+  Products: { idCategory?: number; idBrand?: number | null }
   Filters: undefined
   FilteredCategory: undefined
   ProductDetails: undefined
