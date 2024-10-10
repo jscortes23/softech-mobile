@@ -4,6 +4,8 @@ import { ButtonPrimary } from '../components/ButtonPrimary'
 import { StyledText } from '../components/StyledText'
 import { colors } from '../config/themes/appThemes'
 import { formatPrice } from '../utils/formatPrice'
+import { useContext } from 'react'
+import { AuthContext } from '../context/useAuth'
 
 interface OrderSummaryProps {
   iva: number
@@ -13,12 +15,10 @@ interface OrderSummaryProps {
 
 export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
   const { iva, discountPercentage = 0, totalPrice } = props
-
   const discount = (totalPrice * discountPercentage) / 100
-
   const ivaCalculated = (totalPrice - discount) * (iva / 100)
-
   const finalTotal = totalPrice - discount + ivaCalculated
+  const { token } = useContext(AuthContext)
 
   return (
     <View style={styles.container}>
@@ -67,7 +67,11 @@ export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
           </StyledText>
         </View>
       </View>
-      <ButtonPrimary variant="primary" text="Checkout" />
+      {token ? (
+        <ButtonPrimary variant="primary" text="Checkout" />
+      ) : (
+        <></>
+      )}
     </View>
   )
 }

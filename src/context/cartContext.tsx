@@ -2,10 +2,10 @@ import React, { createContext, useState, useContext, ReactNode } from 'react'
 
 // Definición del tipo de producto
 interface Product {
-  id_producto: number
-  descripcion_producto: string
-  valor_unitario: number
-  imagen_miniatura_producto: string
+  id_producto: number | undefined
+  descripcion_producto: string | undefined
+  valor_unitario: number | undefined
+  imagen_miniatura_producto: string | undefined
   // Añade aquí otros campos que necesites del producto
 }
 
