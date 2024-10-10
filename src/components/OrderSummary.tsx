@@ -11,10 +11,11 @@ interface OrderSummaryProps {
   iva: number
   discountPercentage?: number
   totalPrice: number
+  onPress?: () => void
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
-  const { iva, discountPercentage = 0, totalPrice } = props
+  const { iva, discountPercentage = 0, totalPrice, onPress } = props
   const discount = (totalPrice * discountPercentage) / 100
   const ivaCalculated = (totalPrice - discount) * (iva / 100)
   const finalTotal = totalPrice - discount + ivaCalculated
@@ -68,7 +69,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = (props) => {
         </View>
       </View>
       {token ? (
-        <ButtonPrimary variant="primary" text="Checkout" />
+        <ButtonPrimary variant="primary" text="Checkout" onPress={onPress} />
       ) : (
         <></>
       )}

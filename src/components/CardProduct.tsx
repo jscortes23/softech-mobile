@@ -7,8 +7,8 @@ import { colors } from '../config/themes/appThemes'
 
 interface CardProductProps {
   price: number
-  imageUrl: string
-  name: string
+  imageUrl: string | undefined
+  name: string | undefined
   onDelete?: () => void
   onChange?: (newPrice: number) => void
 }
