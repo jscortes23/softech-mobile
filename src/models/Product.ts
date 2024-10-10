@@ -18,4 +18,20 @@ export interface ProductType {
   estado: number
   created_at: string
   updated_at: any
+  categoria: {
+    id_categoria: number
+    nombre_categoria: string
+  }
+  unidad_medida: {
+    id_unidad_medida: number
+    descripcion_unidad_de_medida: string
+  }
+  embalaje: {
+    id_embalaje: number
+    descripcion_embalaje: string
+  }
+  marca: {
+    id_marca: number
+    nombre_marca: string
+  }
 }
