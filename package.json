@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^6.6.15",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
+    "axios": "^1.7.7",
     "expo": "~51.0.35",
     "expo-constants": "~16.0.2",
     "expo-linear-gradient": "~13.0.2",
@@ -22,6 +23,7 @@
     "firebase": "^10.12.1",
     "react": "18.2.0",
     "react-native": "^0.74.5",
+    "react-native-base64": "^0.2.1",
     "react-native-dropdown-select-list": "^2.0.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
+    "@types/react-native-base64": "^0.2.2",
     "@types/react-native-vector-icons": "^6.4.18",
     "eslint": "^8.57.0",
     "eslint-config-universe": "^12.0.1",

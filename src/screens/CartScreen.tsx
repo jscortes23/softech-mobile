@@ -13,9 +13,10 @@ import { postCOPtoUSD } from '../services/postCOPtoUSD'
 
 type CartScreenProps = NativeStackScreenProps<StackParamList, 'Cart'>
 
-export const CartScreen: React.FC<CartScreenProps> = () => {
+export const CartScreen: React.FC<CartScreenProps> = (props) => {
   const { items, removeFromCart, updateQuantity, getTotalPrice } = useCart()
   const [totalUSD, setTotalUSD] = useState()
+  const { navigation } = props
 
   const handleRemoveItem = (itemId: number) => {
     removeFromCart(itemId)
@@ -28,7 +29,7 @@ export const CartScreen: React.FC<CartScreenProps> = () => {
   const handleCheckout = async () => {
     const res = await postCOPtoUSD(getTotalPrice())
     setTotalUSD && setTotalUSD(res.total_usd)
-    console.warn(totalUSD)
+    navigation.navigate('Payment', { totalUSD: totalUSD })
   }
 
   const renderProduct = (item: CartItem) => (
