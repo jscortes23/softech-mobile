@@ -21,14 +21,13 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
   const { navigation, route } = props
   const [products, setProducts] = useState<ProductType[]>([])
   const idCategory = route.params?.idCategory
-  const idBrand = route.params?.idBrand // Recibimos el id de la marca
+  const idBrand = route.params?.idBrand
 
   useEffect(() => {
     if (idBrand) {
       getProductsByBrands(idBrand)
         .then((data) => setProducts(data))
         .catch((error) => {
-          // Aquí podemos manejar el error y mostrarlo en la interfaz de usuario si es necesario
           console.error('Error fetching products by brand:', error)
         })
     } else if (idCategory) {
@@ -56,7 +55,6 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
           {products.length}
         </StyledText>
       </View>
-      {/* Solución temporal al renderizado de la última fila del componente */}
       <ScrollView contentContainerStyle={{ paddingBottom: 180 }}>
         <GridView
           data={products}
@@ -68,7 +66,9 @@ export const ProductsScreen: React.FC<ProductsProps> = (props) => {
                 'https://prints.ultracoloringpages.com/4d4e53262cd35c980ad27cdb71c14b4c.png'
               }
               productPrice={Number(item.valor_unitario)}
-              onBuyNow={() => navigation.navigate('ProductDetails')}
+              onBuyNow={() =>
+                navigation.navigate('ProductDetails', { idProduct: item.id_producto })
+              }
             />
           )}
         />

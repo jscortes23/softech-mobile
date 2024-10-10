@@ -22,7 +22,7 @@ export type StackParamList = {
   Products: { idCategory?: number; idBrand?: number | null }
   Filters: undefined
   FilteredCategory: undefined
-  ProductDetails: undefined
+  ProductDetails: { idProduct: number }
   Cart: undefined
   Login: undefined
   Register: undefined
